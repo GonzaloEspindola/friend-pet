@@ -56,6 +56,7 @@ const handleClick = () => {
               placeholder="Type here"
               class="input input-bordered input-primary w-full max-w-xs"
             />
+            <button class="btn btn-primary">button</button>
           </form>
         </section>
       </CommonsModal>
