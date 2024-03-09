@@ -1,3 +1,5 @@
 <template>
-  <NuxtPage />
+  <html data-theme="light">
+    <NuxtPage />
+  </html>
 </template>

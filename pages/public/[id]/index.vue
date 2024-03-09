@@ -1,6 +1,29 @@
 <script setup lang="ts">
+import type { PetOwner } from '~/repositories/types'
+
+const { $api } = useNuxtApp()
 const route = useRoute()
-const id = route.params.id
+const id = String(route.params.id)
+
+const ownerList = ref<PetOwner[]>([
+  {
+    ownerName: 'Micaela Bautista',
+    ownerType: 'Dueña',
+    cellphone: '1176845607',
+    whatsapp: '1176845607',
+  },
+])
+
+const getPetInformation = async () => {
+  try {
+    const petInformation = await $api['pets'].petInformation(id)
+    console.log('petInformation', petInformation)
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
+getPetInformation()
 </script>
 
 <template>
@@ -14,7 +37,7 @@ const id = route.params.id
           <PublicResumeCardsSection />
           <PublicDescriptionInformation />
           <CommonsDivider />
-          <PublicOwnersSection />
+          <PublicOwnersSection :owners-list="ownerList" />
           <CommonsPrimaryButton text="Editar perfil" />
         </section>
       </section>

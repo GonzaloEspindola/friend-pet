@@ -1,7 +1,15 @@
 import daisyui from 'daisyui'
 
-module.exports = {
-  content: ['./**/*.{vue,js,ts,jsx,tsx}', './public/index.html'],
-  darkMode: 'class',
+export default {
+  content: ['./components/**/*.vue', './pages/**/*.vue', './public/index.html'],
   plugins: [daisyui],
+  themes: [
+    {
+      light: {
+        ...require('daisyui/src/theming/themes')['light'],
+        primary: 'blue',
+        secondary: 'teal',
+      },
+    },
+  ],
 }

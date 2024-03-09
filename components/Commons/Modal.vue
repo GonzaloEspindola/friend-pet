@@ -2,10 +2,12 @@
 interface ModalProps {
   title: string
   showFooter?: boolean
+  size?: string
 }
 
 const props = withDefaults(defineProps<ModalProps>(), {
   showFooter: false,
+  size: 'md',
 })
 const modal = ref<HTMLElement>()
 
@@ -24,7 +26,7 @@ defineExpose({
 </script>
 
 <template>
-  <dialog ref="modal" class="rounded-xl p-6">
+  <dialog ref="modal" class="rounded-xl p-6 min-w-[350px]">
     <article class="flex flex-col gap-2">
       <header class="flex items-center justify-between">
         <h2 class="uppercase">{{ props.title }}</h2>

@@ -1,9 +1,38 @@
 <script setup lang="ts">
+import { useForm, Field, ErrorMessage } from 'vee-validate'
+import type { PetOwner } from '../types'
+
+interface AddPetForm {
+  name: string
+  address: string
+  specie: string
+  age: string
+  gender: string
+  weight: string
+  description: string
+  owners: PetOwner[]
+}
+
+const { $api } = useNuxtApp()
+const { values, handleSubmit, errors } = useForm<AddPetForm>({})
 const addPetModal = ref<any>()
+const ownerList = ref<PetOwner[]>([
+  {
+    ownerName: 'Micaela Bautista',
+    ownerType: 'Dueña',
+    cellphone: '1176845607',
+    whatsapp: '1176845607',
+  },
+])
 
 const handleClick = () => {
   addPetModal.value.handleOpenModal()
 }
+
+const handleSubmitForm = handleSubmit(async () => {
+  console.log('values', values)
+  console.log('errors', errors)
+})
 </script>
 
 <template>
@@ -23,40 +52,197 @@ const handleClick = () => {
 
       <CommonsModal ref="addPetModal" title="Añadir nueva mascota">
         <section>
-          <form class="flex flex-col gap-2">
-            <label for="">Nombre:</label>
-            <input type="text" placeholder="Pupencio" />
-            <div class="grid-section gap-2">
-              <div>
-                <label for="">Raza:</label>
-                <input type="text" placeholder="Mestizo" />
+          <h2 class="color-secondary">Información</h2>
+          <form @submit.prevent="handleSubmitForm" class="flex flex-col">
+            <article>
+              <div class="label">
+                <span class="label-text">Nombre:</span>
+                <span
+                  class="label-text-alt"
+                  :class="{ 'error-message': errors.name }"
+                  >{{ errors.name ?? 'requerido' }}</span
+                >
               </div>
-              <div>
-                <label for="">Edad:</label>
-                <input type="text" placeholder="6 años" />
+              <Field
+                name="name"
+                rules="required"
+                type="text"
+                placeholder="Pupencio"
+                class="input input-bordered w-full"
+                :class="{ 'error-message': errors.name }"
+              />
+            </article>
+
+            <article>
+              <div class="label">
+                <span class="label-text">Dirección</span>
               </div>
-              <div>
-                <label for="">Genero:</label>
-                <select name="gender-select" id="gender-select">
-                  <option value="male">Masculino</option>
-                  <option value="female">Femenino</option>
-                </select>
+              <Field
+                name="address"
+                type="text"
+                placeholder="San Nicolas 332, Buenos Aires"
+                class="input input-bordered w-full"
+              />
+            </article>
+
+            <article>
+              <div class="label">
+                <span class="label-text">Raza:</span>
+                <span
+                  class="label-text-alt"
+                  :class="{ 'error-message': errors.specie }"
+                  >{{ errors.specie ?? 'requerido' }}</span
+                >
               </div>
-              <div>
-                <label for="">Peso:</label>
-                <input type="text" placeholder="5 kg" />
+              <Field
+                name="specie"
+                rules="required"
+                type="text"
+                placeholder="Mestizo"
+                class="input input-bordered w-full"
+                :class="{ 'error-message': errors.specie }"
+              />
+            </article>
+
+            <article>
+              <div class="label">
+                <span class="label-text">Edad:</span>
+                <span
+                  class="label-text-alt"
+                  :class="{ 'error-message': errors.age }"
+                  >{{ errors.age ?? 'requerido' }}</span
+                >
               </div>
-            </div>
-            <label for="">Dirección:</label>
-            <input type="text" placeholder="Dirección" />
-            <label for="">Descripción:</label>
-            <input type="text" placeholder="Descripción" />
-            <input
-              type="text"
-              placeholder="Type here"
-              class="input input-bordered input-primary w-full max-w-xs"
+              <Field
+                name="age"
+                rules="required"
+                type="text"
+                placeholder="6 años"
+                class="input input-bordered w-full"
+                :class="{ 'error-message': errors.age }"
+              />
+            </article>
+
+            <article>
+              <div class="label">
+                <span class="label-text">Genero:</span>
+                <span
+                  class="label-text-alt"
+                  :class="{ 'error-message': errors.gender }"
+                  >{{ errors.gender ?? 'requerido' }}</span
+                >
+              </div>
+              <Field
+                as="select"
+                name="gender"
+                rules="required"
+                class="select select-bordered"
+                :class="{ 'error-message': errors.gender }"
+              >
+                <option>Masculino</option>
+                <option>Femenino</option>
+              </Field>
+            </article>
+
+            <article>
+              <div class="label">
+                <span class="label-text">Peso:</span>
+                <span
+                  class="label-text-alt"
+                  :class="{ 'error-message': errors.weight }"
+                  >{{ errors.weight ?? 'requerido' }}</span
+                >
+              </div>
+              <Field
+                name="weight"
+                rules="required"
+                type="text"
+                placeholder="5 kg"
+                class="input input-bordered w-full"
+                :class="{ 'error-message': errors.weight }"
+              />
+            </article>
+
+            <article>
+              <div class="label">
+                <span class="label-text">Descripción:</span>
+              </div>
+              <Field
+                name="description"
+                type="text"
+                placeholder="Pequeño y blanco"
+                class="input input-bordered w-full"
+              />
+            </article>
+
+            <CommonsDivider />
+
+            <section class="flex flex-col gap-2">
+              <h2 class="color-secondary">Agregar contactos</h2>
+              <div class="grid-section gap-2">
+                <article>
+                  <div class="label">
+                    <span class="label-text">Nombre:</span>
+                  </div>
+                  <Field
+                    name="ownerName"
+                    type="text"
+                    placeholder="Jhon Die"
+                    class="input input-bordered w-full"
+                  />
+                </article>
+
+                <article>
+                  <div class="label">
+                    <span class="label-text">Parentesco:</span>
+                  </div>
+                  <Field
+                    name="ownerType"
+                    type="text"
+                    placeholder="Dueño"
+                    class="input input-bordered w-full"
+                  />
+                </article>
+
+                <article>
+                  <div class="label">
+                    <span class="label-text">Celular:</span>
+                  </div>
+                  <Field
+                    name="cellphone"
+                    type="text"
+                    placeholder="1175849249"
+                    class="input input-bordered w-full"
+                  />
+                </article>
+
+                <article>
+                  <div class="label">
+                    <span class="label-text">Whatsapp:</span>
+                  </div>
+                  <Field
+                    name="whatsapp"
+                    type="text"
+                    placeholder="1175849249"
+                    class="input input-bordered w-full"
+                  />
+                </article>
+              </div>
+              <CommonsPrimaryButton text="Agregar contacto" class="grow" />
+            </section>
+
+            <PublicOwnersSection
+              class="mt-3"
+              :owners-list="ownerList"
+              hideTitle
             />
-            <button class="btn btn-primary">button</button>
+
+            <CommonsDivider />
+            <CommonsPrimaryButton
+              text="Añadir mascota"
+              class="grow"
+              type="submit"
+            />
           </form>
         </section>
       </CommonsModal>
@@ -65,21 +251,22 @@ const handleClick = () => {
 </template>
 
 <style>
-input,
-select {
-  border: 1px solid #dfddddbe;
-  padding: 2px 6px;
-  border-radius: 5px;
-  color: #8f8f8f;
+select,
+input {
   width: 100%;
-}
-
-input::placeholder {
-  color: #8f8f8f;
+  color: var(--fallback-bc, oklch(var(--bc) / 1));
 }
 
 .grid-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+input.error-message {
+  border-color: rgb(255, 50, 50);
+}
+
+span.error-message {
+  color: rgb(255, 50, 50);
 }
 </style>

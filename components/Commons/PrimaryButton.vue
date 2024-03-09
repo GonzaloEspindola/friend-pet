@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import type { ButtonHTMLAttributes } from 'vue'
+
 interface PrimaryButtonProps {
   text: string
+  type?: any
   showIcon?: boolean
   variant?: string
 }
 
 const props = withDefaults(defineProps<PrimaryButtonProps>(), {
+  type: 'button',
   showIcon: false,
   variant: 'primary',
 })
@@ -20,6 +24,7 @@ const classes = {
   <button
     class="flex items-center gap-2 justify-center rounded-xl px-6 py-2"
     :class="classes[props.variant]"
+    :type="props.type"
   >
     <img
       v-if="props.showIcon"
