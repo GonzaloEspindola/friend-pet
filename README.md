@@ -74,5 +74,5 @@ bun run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
-PORT=8080
-BASE_URL=http://localhost:3001
+PORT=3001
+BASE_URL=http://localhost:8080
