@@ -69,11 +69,6 @@ import { Field } from 'vee-validate'
                   placeholder="********"
                 />
               </label>
-              <a
-                href="#"
-                class="color-span text-sm text-right hover:text-[#c74123]"
-                >Has olvidado la contraseña?</a
-              >
             </div>
           </section>
 
@@ -81,7 +76,7 @@ import { Field } from 'vee-validate'
             <CommonsPrimaryButton text="Registrarse" />
             <label class="text-sm text-center"
               >Ya tienes cuenta?
-              <a href="#" class="color-span hover:text-[#c74123]"
+              <a href="/auth/login" class="color-span hover:text-[#c74123]"
                 >Inicia sesión</a
               ></label
             >
