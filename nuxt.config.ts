@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       apiBase: NUXT_PUBLIC_API_BASE,
     },
   },
+  extends: ['./auth'],
 
   modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt'],
 

@@ -16,8 +16,8 @@ const props = withDefaults(defineProps<OwnerSectionProps>(), {
     <h2 v-if="!props.hideTitle" class="color-secondary">Mi familia</h2>
     <PublicOwnerCard
       v-for="owner in props.ownersList"
-      :key="owner.ownerName"
-      :owner-name="owner.ownerName"
+      :key="owner.name"
+      :owner-name="owner.name"
       :owner-type="owner.ownerType"
       :cellphone="owner.cellphone"
       :whatsapp="owner.whatsapp"

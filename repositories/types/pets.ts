@@ -6,6 +6,7 @@ export interface PetOwner {
 }
 
 export interface Pet {
+  id: string
   name: string
   address: string
   specie: string

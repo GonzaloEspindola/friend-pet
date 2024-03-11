@@ -29,8 +29,16 @@ const props = defineProps<OwnerCardProps>()
     </section>
 
     <section class="flex justify-end items-center grow gap-4">
-      <img src="/assets/svg/cell.png" class="h-[40px] 2-[40px]" />
-      <img src="/assets/svg/whatsapp.png" class="h-[40px] 2-[40px]" />
+      <a :href="'tel:' + props.cellphone">
+        <img src="/assets/svg/cell.png" class="h-[40px] w-[40px]" />
+      </a>
+
+      <a
+        :href="'https://api.whatsapp.com/send?phone=' + props.whatsapp"
+        target="_blank"
+      >
+        <img src="/assets/svg/whatsapp.png" class="h-[40px] w-[40px]" />
+      </a>
     </section>
   </div>
 </template>

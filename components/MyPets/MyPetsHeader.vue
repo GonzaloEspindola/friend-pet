@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { useForm, Field, ErrorMessage } from 'vee-validate'
+import { useForm, Field } from 'vee-validate'
 import type { PetOwner } from '../types'
+import vueQr from 'vue-qr/src/packages/vue-qr.vue'
+
+const NUXT_PUBLIC_API_BASE = process.env.NUXT_PUBLIC_API_BASE
 
 interface AddPetForm {
   name: string
@@ -18,7 +21,7 @@ const { values, handleSubmit, errors } = useForm<AddPetForm>({})
 const addPetModal = ref<any>()
 const ownerList = ref<PetOwner[]>([
   {
-    ownerName: 'Micaela Bautista',
+    name: 'Micaela Bautista',
     ownerType: 'Dueña',
     cellphone: '1176845607',
     whatsapp: '1176845607',
@@ -33,6 +36,24 @@ const handleSubmitForm = handleSubmit(async () => {
   console.log('values', values)
   console.log('errors', errors)
 })
+
+const qrStyleOptions = {
+  data: {
+    scale: 15,
+  },
+  timing: {
+    scale: 10,
+    protectors: false,
+  },
+  alignment: {
+    scale: 10,
+    protectors: true,
+  },
+  cornerAlignment: {
+    scale: 10,
+    protectors: false,
+  },
+}
 </script>
 
 <template>
@@ -52,6 +73,18 @@ const handleSubmitForm = handleSubmit(async () => {
 
       <CommonsModal ref="addPetModal" title="Añadir nueva mascota">
         <section>
+          <article>
+            <div class="flex justify-center items-center">
+              <vue-qr
+                :text="`${NUXT_PUBLIC_API_BASE}/qr/`"
+                qid="testid"
+                colorLight="white"
+                colorDark="black"
+                :components="qrStyleOptions"
+              ></vue-qr>
+            </div>
+          </article>
+
           <h2 class="color-secondary">Información</h2>
           <form @submit.prevent="handleSubmitForm" class="flex flex-col">
             <article>

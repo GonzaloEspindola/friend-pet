@@ -16,6 +16,7 @@
     "nuxt": "^3.10.3",
     "vee-validate": "^4.12.6",
     "vue": "^3.4.19",
+    "vue-qr": "^4.0.9",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

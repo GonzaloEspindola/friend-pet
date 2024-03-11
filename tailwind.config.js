@@ -6,9 +6,14 @@ export default {
   themes: [
     {
       light: {
-        ...require('daisyui/src/theming/themes')['light'],
-        primary: 'blue',
+        primary: '#e84f2c',
         secondary: 'teal',
+        'neutral-content': 'red',
+      },
+      dark: {
+        primary: '#e84f2c',
+        secondary: 'teal',
+        'neutral-content': 'red',
       },
     },
   ],

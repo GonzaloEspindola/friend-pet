@@ -16,14 +16,26 @@ const ownerList = ref<PetOwner[]>([
 
 const getPetInformation = async () => {
   try {
-    const petInformation = await $api['pets'].petInformation(id)
-    console.log('petInformation', petInformation)
+    return await $api.pets.petInformation(id)
   } catch (error) {
     console.log('error', error)
   }
 }
 
-getPetInformation()
+const { data, pending, refresh } = useAsyncData(
+  'pets',
+  async () => {
+    const pet = await getPetInformation()
+
+    return {
+      pet,
+    }
+  },
+  {
+    server: false,
+    lazy: false,
+  },
+)
 </script>
 
 <template>
@@ -32,12 +44,21 @@ getPetInformation()
       <section class="flex flex-col">
         <PublicImageSection />
         <section class="flex flex-col gap-6 px-6 z-10 pb-6">
-          <PublicBasicInformation />
+          <PublicBasicInformation
+            :name="data?.pet?.name!"
+            :gender="data?.pet?.gender!"
+            :address="data?.pet?.address"
+          />
           <CommonsDivider />
-          <PublicResumeCardsSection />
-          <PublicDescriptionInformation />
+          <PublicResumeCardsSection
+            :specie="data?.pet?.specie!"
+            :age="data?.pet?.age!"
+            :gender="data?.pet?.gender!"
+            :weight="data?.pet?.weight!"
+          />
+          <PublicDescriptionInformation :description="data?.pet?.description" />
           <CommonsDivider />
-          <PublicOwnersSection :owners-list="ownerList" />
+          <PublicOwnersSection :owners-list="data?.pet?.owners" />
           <CommonsPrimaryButton text="Editar perfil" />
         </section>
       </section>

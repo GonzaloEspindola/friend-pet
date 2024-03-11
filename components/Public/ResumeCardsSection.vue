@@ -1,3 +1,14 @@
+<script setup lang="ts">
+interface ResumeCardsProps {
+  specie: string
+  age: string
+  gender: string
+  weight: string
+}
+
+const props = defineProps<ResumeCardsProps>()
+</script>
+
 <template>
   <section class="flex flex-col gap-2">
     <h2 class="color-secondary">Datos sobre mi</h2>
@@ -8,7 +19,7 @@
         <img src="/assets/svg/paw.png" class="h-[26px] 2-[26px]" />
         <div>
           <p class="text-sm color-secondary">Raza</p>
-          <strong class="text-lg color-primary">Pulgoso</strong>
+          <strong class="text-lg color-primary">{{ props.specie }}</strong>
         </div>
       </div>
 
@@ -18,7 +29,7 @@
         <img src="/assets/svg/clock.png" class="h-[26px] 2-[26px]" />
         <div>
           <p class="text-sm color-secondary">Edad</p>
-          <strong class="text-lg color-primary">6 años</strong>
+          <strong class="text-lg color-primary">{{ props.age }}</strong>
         </div>
       </div>
 
@@ -28,7 +39,7 @@
         <img src="/assets/svg/female.png" class="h-[26px] 2-[26px]" />
         <div>
           <p class="text-sm color-secondary">Genero</p>
-          <strong class="text-lg color-primary">Femenino</strong>
+          <strong class="text-lg color-primary">{{ props.gender }}</strong>
         </div>
       </div>
 
@@ -38,7 +49,7 @@
         <img src="/assets/svg/weight.png" class="h-[26px] 2-[26px]" />
         <div>
           <p class="text-sm color-secondary">Peso</p>
-          <strong class="text-lg color-primary">15 kg</strong>
+          <strong class="text-lg color-primary">{{ props.weight }}</strong>
         </div>
       </div>
     </article>
