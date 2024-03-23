@@ -11,7 +11,7 @@ const { user } = storeToRefs(authStore)
 
 const roleRedirect = {
   admin: '/',
-  default: '/',
+  default: '/my-pets',
 }
 
 type roleTypes = 'admin'

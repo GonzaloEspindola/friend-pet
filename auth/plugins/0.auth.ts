@@ -159,12 +159,6 @@ export default defineNuxtPlugin(({ $config, payload }) => {
         body,
       })
 
-      console.log('response[tokenProperty]', response[tokenProperty])
-      console.log(
-        'response[refreshTokenProperty]',
-        response[refreshTokenProperty],
-      )
-
       if (response[tokenProperty] && response[refreshTokenProperty]) {
         token.set(response[tokenProperty])
         refreshToken.set(response[refreshTokenProperty])

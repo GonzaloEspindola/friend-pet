@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <section class="flex items-center justify-center">
     <div

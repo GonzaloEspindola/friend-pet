@@ -1,12 +1,33 @@
+<script setup lang="ts">
+const { $api } = useNuxtApp()
+
+const getMyPets = async () => {
+  try {
+    return await $api.pets.myPets()
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
+const { data, pending, refresh } = useAsyncData(
+  'pets',
+  async () => {
+    const pet = await getMyPets()
+
+    return {
+      pet,
+    }
+  },
+  {
+    server: false,
+    lazy: false,
+  },
+)
+</script>
+
 <template>
   <article class="flex flex-col gap-4">
-    <h2 class="color-secondary">Mis perros</h2>
-    <div class="rounded-3xl p-3 bg-white shadow-md">
-      <MyPetsImage />
-      <div class="flex flex-wrap gap-2 pt-3 relative min-w-100 z-1">
-        <CommonsPrimaryButton text="Editar" />
-        <CommonsPrimaryButton text="Ver detalle" />
-      </div>
-    </div>
+    <h2 class="color-secondary">Mis mascotas</h2>
+    <MyPetsCard v-for="pet in data" :key="pet?.id" />
   </article>
 </template>

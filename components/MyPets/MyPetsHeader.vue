@@ -54,6 +54,16 @@ const qrStyleOptions = {
     protectors: false,
   },
 }
+
+watch(
+  values,
+  () => {
+    console.log('values', values)
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
 
 <template>
@@ -149,7 +159,7 @@ const qrStyleOptions = {
               <Field
                 name="age"
                 rules="required"
-                type="text"
+                type="number"
                 placeholder="6 años"
                 class="input input-bordered w-full"
                 :class="{ 'error-message': errors.age }"
@@ -172,8 +182,8 @@ const qrStyleOptions = {
                 class="select select-bordered"
                 :class="{ 'error-message': errors.gender }"
               >
-                <option>Masculino</option>
-                <option>Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
               </Field>
             </article>
 
@@ -189,7 +199,7 @@ const qrStyleOptions = {
               <Field
                 name="weight"
                 rules="required"
-                type="text"
+                type="number"
                 placeholder="5 kg"
                 class="input input-bordered w-full"
                 :class="{ 'error-message': errors.weight }"

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { ButtonHTMLAttributes } from 'vue'
-
 interface PrimaryButtonProps {
   text: string
   type?: any
   showIcon?: boolean
   variant?: string
+  to?: string
 }
 
 const props = withDefaults(defineProps<PrimaryButtonProps>(), {
