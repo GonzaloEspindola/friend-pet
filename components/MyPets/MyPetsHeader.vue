@@ -28,6 +28,14 @@ const ownerList = ref<PetOwner[]>([
   },
 ])
 
+const addPet = async () => {
+  try {
+    return await $api.pets.myPets()
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
 const handleClick = () => {
   addPetModal.value.handleOpenModal()
 }
