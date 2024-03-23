@@ -1,5 +1,27 @@
 <script setup lang="ts">
-import { Field } from 'vee-validate'
+import { Field, useForm } from 'vee-validate'
+
+interface User {
+  email?: string
+  password?: string
+}
+
+const loginErrors = {
+  401: 'Credenciales inválidas',
+} as { [key: string]: any }
+
+const { signIn } = useAuth()
+const { handleSubmit } = useForm<User>()
+const loginError = ref()
+
+const onSignInError = (error: any) => {
+  const errorCode = error.data?.statusCode
+  loginError.value = loginErrors[errorCode] ?? loginErrors[401]
+}
+
+const onSubmit = handleSubmit(async (user: User) => {
+  await signIn(user, onSignInError)
+})
 </script>
 
 <template>
@@ -16,7 +38,10 @@ import { Field } from 'vee-validate'
       <article class="flex flex-col px-6 container relative grow">
         <h2 class="text-center"><strong>Inicia sesión</strong></h2>
 
-        <section class="flex flex-col justify-between grow py-10">
+        <form
+          class="flex flex-col justify-between grow py-10"
+          @submit.prevent="onSubmit"
+        >
           <section class="flex flex-col gap-6">
             <div>
               <label for="email" class="color-secondary text-sm">Email:</label>
@@ -36,7 +61,7 @@ import { Field } from 'vee-validate'
                 </svg>
                 <Field
                   id="email"
-                  name="name"
+                  name="email"
                   rules="required"
                   type="text"
                   placeholder="Pupencio"
@@ -78,7 +103,7 @@ import { Field } from 'vee-validate'
           </section>
 
           <div class="flex flex-col gap-2">
-            <CommonsPrimaryButton text="Registrarse" />
+            <CommonsPrimaryButton text="Inicia Sesión" type="submit" />
             <label class="text-sm text-center"
               >Aun no tienes una cuenta?
               <a href="/auth/register" class="color-span hover:text-[#c74123]"
@@ -86,7 +111,7 @@ import { Field } from 'vee-validate'
               ></label
             >
           </div>
-        </section>
+        </form>
       </article>
     </div>
   </section>

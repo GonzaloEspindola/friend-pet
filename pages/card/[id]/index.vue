@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { PetOwner } from '~/repositories/types'
 
+definePageMeta({
+  auth: false,
+})
+
 const { $api } = useNuxtApp()
 const route = useRoute()
 const id = String(route.params.id)

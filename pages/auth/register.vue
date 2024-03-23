@@ -1,4 +1,9 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'empty',
+  auth: false,
+})
+
 import { Field } from 'vee-validate'
 </script>
 

@@ -12,8 +12,13 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
+    "@pinia/nuxt": "^0.5.1",
     "@vueuse/nuxt": "^10.9.0",
+    "jwt-decode": "^4.0.0",
     "nuxt": "^3.10.3",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pinia": "^2.1.7",
     "vee-validate": "^4.12.6",
     "vue": "^3.4.19",
     "vue-qr": "^4.0.9",
@@ -21,6 +26,7 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "@types/passport-local": "^1.0.38",
     "daisyui": "^4.7.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
