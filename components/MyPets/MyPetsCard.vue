@@ -1,11 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface PetCardProps {
+  id?: string
+  name?: string
+  specie?: string
+  age?: string
+  weight?: string
+  address?: string
+  description?: string
+  gender?: string
+  qrCode?: string
+}
+
+const props = defineProps<PetCardProps>()
+</script>
 
 <template>
-  <div class="rounded-3xl p-3 bg-white shadow-md">
+  <div class="flex flex-wrap p-4 bg-white rounded-md drop-shadow-md">
     <MyPetsImage />
-    <div class="flex flex-wrap gap-2 pt-3 relative min-w-100 z-1">
-      <CommonsPrimaryButton text="Editar" />
-      <CommonsPrimaryButton text="Ver detalle" />
+    <div>
+      <p>{{ props.name }}</p>
     </div>
   </div>
 </template>

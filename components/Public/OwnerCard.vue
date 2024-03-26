@@ -2,8 +2,8 @@
 export interface OwnerCardProps {
   ownerName: string
   ownerType: string
-  cellphone: string
-  whatsapp: string
+  cellphone: number
+  whatsApp: number
 }
 
 const props = defineProps<OwnerCardProps>()
@@ -34,7 +34,7 @@ const props = defineProps<OwnerCardProps>()
       </a>
 
       <a
-        :href="'https://api.whatsapp.com/send?phone=' + props.whatsapp"
+        :href="'https://api.whatsapp.com/send?phone=' + props.whatsApp"
         target="_blank"
       >
         <img src="/assets/svg/whatsapp.png" class="h-[40px] w-[40px]" />

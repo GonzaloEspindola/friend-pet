@@ -15,4 +15,5 @@ export interface Pet {
   weight: string
   description: string
   owners: PetOwner[]
+  qrCode: string
 }

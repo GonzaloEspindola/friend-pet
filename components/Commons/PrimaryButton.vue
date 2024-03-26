@@ -1,29 +1,43 @@
 <script setup lang="ts">
+type ButtonSizes = 'xs' | 'sm' | 'md' | 'lg'
+type ButtonVariants =
+  | 'neutral'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'ghost'
+  | 'link'
+  | 'success'
+
 interface PrimaryButtonProps {
   text: string
+  disabled?: boolean
   type?: any
   showIcon?: boolean
-  variant?: string
   to?: string
+  variant?: ButtonVariants
+  size?: ButtonSizes
 }
 
 const props = withDefaults(defineProps<PrimaryButtonProps>(), {
   type: 'button',
   showIcon: false,
   variant: 'primary',
+  size: 'md',
 })
 
-const classes = {
-  primary: 'bg-[#e84f2c] text-white grow hover:bg-[#c74123]',
-  secondary: 'text-black border hover:border-[#c74123] hover:text-[#c74123]',
-}
+const classes = computed(() => {
+  const variantClass = props.variant ? `btn-${props.variant}` : ''
+  const sizeClass = props.size ? `btn-${props.size}` : ''
+  return `btn ${variantClass} ${sizeClass}`.trim()
+})
 </script>
 
 <template>
   <button
-    class="flex items-center gap-2 justify-center rounded-xl px-6 py-2"
-    :class="classes[props.variant]"
+    :class="['flex items-center gap-2 justify-center rounded btn', classes]"
     :type="props.type"
+    :disabled="props.disabled"
   >
     <img
       v-if="props.showIcon"

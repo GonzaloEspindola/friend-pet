@@ -28,6 +28,18 @@ const { data, pending, refresh } = useAsyncData(
 <template>
   <article class="flex flex-col gap-4">
     <h2 class="color-secondary">Mis mascotas</h2>
-    <MyPetsCard v-for="pet in data" :key="pet?.id" />
+    <MyPetsCard
+      v-for="pet in data"
+      :key="pet?.id"
+      :id="pet?.id"
+      :name="pet?.name"
+      :specie="pet?.specie"
+      :age="pet?.age"
+      :weight="pet?.weight"
+      :address="pet?.address"
+      :description="pet?.description"
+      :gender="pet?.gender"
+      :qrCode="pet?.qrCode"
+    />
   </article>
 </template>

@@ -1,6 +1,6 @@
 export interface PetOwner {
-  name: string
+  ownerName: string
   ownerType: string
-  cellphone: string
-  whatsapp: string
+  cellphone: number
+  whatsApp: number
 }
