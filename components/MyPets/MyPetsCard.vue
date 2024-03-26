@@ -2,23 +2,19 @@
 interface PetCardProps {
   id?: string
   name?: string
-  specie?: string
-  age?: string
-  weight?: string
-  address?: string
-  description?: string
-  gender?: string
   qrCode?: string
 }
 
 const props = defineProps<PetCardProps>()
+console.log('props', props)
 </script>
 
 <template>
-  <div class="flex flex-wrap p-4 bg-white rounded-md drop-shadow-md">
+  <div class="flex flex-col gap-2 p-2 bg-white rounded-md drop-shadow-md">
     <MyPetsImage />
-    <div>
-      <p>{{ props.name }}</p>
-    </div>
+    <article class="flex gap-2 items-center">
+      <CommonsPrimaryButton text="Ver QR" class="btn-primary btn-sm grow" />
+      <CommonsPrimaryButton text="Editar" class="btn-primary btn-sm grow" />
+    </article>
   </div>
 </template>

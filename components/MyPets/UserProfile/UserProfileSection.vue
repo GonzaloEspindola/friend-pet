@@ -1,5 +1,5 @@
 <template>
-  <section class="flex flex-wrap p-4 bg-white rounded-md drop-shadow-md">
+  <section class="flex flex-col p-4 bg-white rounded-md drop-shadow-md">
     <MyPetsUserProfileForm />
     <MyPetsUserProfileAlert />
   </section>

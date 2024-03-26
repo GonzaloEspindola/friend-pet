@@ -12,11 +12,7 @@ const getMyPets = async () => {
 const { data, pending, refresh } = useAsyncData(
   'pets',
   async () => {
-    const pet = await getMyPets()
-
-    return {
-      pet,
-    }
+    return await getMyPets()
   },
   {
     server: false,
@@ -26,20 +22,30 @@ const { data, pending, refresh } = useAsyncData(
 </script>
 
 <template>
-  <article class="flex flex-col gap-4">
+  <article class="flex flex-col gap-2">
     <h2 class="color-secondary">Mis mascotas</h2>
-    <MyPetsCard
-      v-for="pet in data"
-      :key="pet?.id"
-      :id="pet?.id"
-      :name="pet?.name"
-      :specie="pet?.specie"
-      :age="pet?.age"
-      :weight="pet?.weight"
-      :address="pet?.address"
-      :description="pet?.description"
-      :gender="pet?.gender"
-      :qrCode="pet?.qrCode"
-    />
+    <div class="grid-section gap-2">
+      <MyPetsCard
+        v-for="pet in data"
+        :key="pet?.id"
+        :id="pet?.id"
+        :name="pet?.name"
+        :qrCode="pet?.qrCode"
+      />
+      <MyPetsCard
+        v-for="pet in data"
+        :key="pet?.id"
+        :id="pet?.id"
+        :name="pet?.name"
+        :qrCode="pet?.qrCode"
+      />
+    </div>
   </article>
 </template>
+
+<style scoped>
+.grid-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+}
+</style>
