@@ -1,11 +1,13 @@
 <script setup lang="ts">
 const { $api } = useNuxtApp()
+const authStore = useAuthStore()
+const { profileIsCompleted } = storeToRefs(authStore)
 
 const getMyPets = async () => {
   try {
     return await $api.pets.myPets()
   } catch (error) {
-    console.log('error', error)
+    showToast('Ha ocurrido un error al obtener a tus mascotas')
   }
 }
 
@@ -22,7 +24,7 @@ const { data, pending, refresh } = useAsyncData(
 </script>
 
 <template>
-  <article class="flex flex-col gap-2">
+  <article class="flex flex-col gap-2 w-full">
     <h2 class="color-secondary">Mis mascotas</h2>
     <div class="grid-section gap-2">
       <MyPetsCard
@@ -39,6 +41,7 @@ const { data, pending, refresh } = useAsyncData(
         :name="pet?.name"
         :qrCode="pet?.qrCode"
       />
+      <MyPetsAddPet v-if="profileIsCompleted" />
     </div>
   </article>
 </template>

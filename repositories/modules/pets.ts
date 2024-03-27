@@ -1,5 +1,5 @@
 import { HttpRepository } from '../http-repository'
-import type { Pet } from '../types'
+import type { AddPetPayload, Pet } from '../types'
 
 export class PetsRepository extends HttpRepository {
   private RESOURCE = 'pet'
@@ -13,6 +13,13 @@ export class PetsRepository extends HttpRepository {
   async petInformation(id: string): Promise<Pet> {
     return await this.httpClient<Pet>(`${this.RESOURCE}/${id}`, {
       method: 'GET',
+    })
+  }
+
+  async addPet(payload: AddPetPayload): Promise<Pet> {
+    return await this.httpClient<Pet>(`${this.RESOURCE}/my-pets`, {
+      method: 'POST',
+      body: payload,
     })
   }
 }

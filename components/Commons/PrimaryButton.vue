@@ -17,6 +17,7 @@ interface PrimaryButtonProps {
   to?: string
   variant?: ButtonVariants
   size?: ButtonSizes
+  pending?: boolean
 }
 
 const props = withDefaults(defineProps<PrimaryButtonProps>(), {
@@ -24,6 +25,7 @@ const props = withDefaults(defineProps<PrimaryButtonProps>(), {
   showIcon: false,
   variant: 'primary',
   size: 'md',
+  pending: false,
 })
 
 const classes = computed(() => {
@@ -37,7 +39,7 @@ const classes = computed(() => {
   <button
     :class="['flex items-center gap-2 justify-center rounded btn', classes]"
     :type="props.type"
-    :disabled="props.disabled"
+    :disabled="props.pending"
   >
     <img
       v-if="props.showIcon"
@@ -45,6 +47,7 @@ const classes = computed(() => {
       alt="Imagen de perfil del usuario en sesión"
       class="h-[40px] w-[40px]"
     />
+    <span v-if="props.pending" class="loading loading-spinner w-4 h-4"></span>
     {{ props.text }}
   </button>
 </template>

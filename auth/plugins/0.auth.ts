@@ -137,6 +137,16 @@ export default defineNuxtPlugin(({ $config, payload }) => {
       const userInfo = token.getUserInfo()
       if (userInfo) {
         authStore.setUser({ ...userInfo, ...userProfile })
+        if (
+          user.value.profile.ownerName &&
+          user.value.profile.ownerTypePreference &&
+          user.value.profile.cellphone &&
+          user.value.profile.whatsApp
+        ) {
+          authStore.setProfileIsCompleted(true)
+        } else {
+          authStore.setProfileIsCompleted(false)
+        }
       }
     } catch (error) {
       console.log(error)

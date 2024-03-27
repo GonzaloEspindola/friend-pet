@@ -6,7 +6,6 @@ interface PetCardProps {
 }
 
 const props = defineProps<PetCardProps>()
-console.log('props', props)
 </script>
 
 <template>

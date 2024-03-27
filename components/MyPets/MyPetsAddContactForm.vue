@@ -76,10 +76,8 @@ const handleSubmitForm = handleSubmit(async () => {
 
     <CommonsPrimaryButton
       text="Agregar contacto"
-      class="grow"
+      class="btn-outline btn-sm"
       @click="handleSubmitForm"
-      :variant="props.disabled ? 'disabled' : 'primary'"
-      :disabled="props.disabled"
     />
   </section>
 </template>

@@ -22,7 +22,7 @@ const getPetInformation = async () => {
   try {
     return await $api.pets.petInformation(id)
   } catch (error) {
-    console.log('error', error)
+    showToast('Ha ocurrido un error al obtener a tus mascotas')
   }
 }
 

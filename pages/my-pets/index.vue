@@ -1,8 +1,6 @@
 <template>
-  <section class="flex items-center justify-center">
-    <div class="min-h-screen max-w-screen-md p-6 flex flex-col gap-4">
-      <MyPetsHeader />
-      <MyPetsSection />
-    </div>
+  <section class="flex flex-col items-center gap-2">
+    <MyPetsHeader />
+    <MyPetsSection />
   </section>
 </template>

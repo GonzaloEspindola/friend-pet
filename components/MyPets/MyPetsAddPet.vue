@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useForm, Form } from 'vee-validate'
 import type { PetOwner } from '../types'
+import type { AddPetPayload } from '~/repositories/types'
 import vueQr from 'vue-qr/src/packages/vue-qr.vue'
 
 const NUXT_PUBLIC_API_BASE = process.env.NUXT_PUBLIC_API_BASE
@@ -9,45 +10,65 @@ interface AddPetForm {
   name: string
   address: string
   specie: string
-  age: string
+  age: number
   gender: string
-  weight: string
+  weight: number
   description: string
   owners: PetOwner[]
-  selectAge: string
+  ageSelect: string
 }
 
-const authStore = useAuthStore()
-const { user } = storeToRefs(authStore)
-const { $api } = useNuxtApp()
-const { values, handleSubmit, errors } = useForm<AddPetForm>({})
 const addPetModal = ref<any>()
-const isProfileCompleted = ref<boolean>(false)
-
-console.log('user', user)
-
+const authStore = useAuthStore()
+const { user, profileIsCompleted } = storeToRefs(authStore)
+const { $api } = useNuxtApp()
+const { values, handleSubmit, errors, setFieldValue } = useForm<AddPetForm>({})
+const payload = ref<AddPetPayload>({
+  address: '',
+  age: '',
+  description: '',
+  gender: '',
+  name: '',
+  specie: '',
+  weight: '',
+  ownersList: [],
+})
 const ownerList = ref<PetOwner[]>([])
-
-const addPet = async () => {
-  try {
-    return await $api.pets.myPets()
-  } catch (error) {
-    console.log('error', error)
-  }
-}
+const isLoading = ref<boolean>(false)
 
 const handleClick = () => {
   addPetModal.value.handleOpenModal()
 }
 
-const handleSubmitForm = handleSubmit(async () => {
-  console.log('values', values)
-  console.log('errors', errors)
-})
-
 const handleAddNewContact = (newContact: any) => {
   ownerList.value.push(newContact)
 }
+
+const addPet = async () => {
+  try {
+    isLoading.value = true
+    return await $api.pets.myPets()
+  } catch (error) {
+    showToast('Ha ocurrido un error al agregar a tu mascota')
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const handleSubmitForm = handleSubmit(() => {
+  payload.value.name = values.name
+  payload.value.address = values.address
+  payload.value.age = `${values.age}`
+  payload.value.weight = `${values.weight}`
+  payload.value.description = values.description
+  payload.value.gender = values.gender
+  payload.value.specie = values.specie
+  payload.value.ownersList = ownerList.value.slice()
+
+  console.log('values', values)
+
+  addPet()
+})
 
 const qrStyleOptions = {
   data: {
@@ -68,31 +89,15 @@ const qrStyleOptions = {
 }
 
 watch(
-  values,
-  () => {
-    console.log('values', values)
-  },
-  {
-    immediate: true,
-  },
-)
-
-watch(
   user,
   () => {
-    if (
-      user.value?.profile.name &&
-      user.value.profile.ownerTypePreference &&
-      user.value.profile.cellphone &&
-      user.value.profile.whatsApp
-    ) {
+    if (profileIsCompleted) {
       ownerList.value.push({
-        ownerName: user.value.profile.name,
-        ownerType: user.value.profile.ownerTypePreference,
-        cellphone: user.value.profile.name,
-        whatsApp: user.value.profile.name,
+        ownerName: user?.value?.profile.ownerName,
+        ownerType: user?.value?.profile.ownerTypePreference,
+        cellphone: user?.value?.profile.cellphone,
+        whatsApp: user?.value?.profile.whatsApp,
       })
-      isProfileCompleted.value = true
     }
   },
   {
@@ -122,28 +127,6 @@ watch(
           ></vue-qr>
         </div>
       </article>
-
-      <section
-        v-if="!isProfileCompleted"
-        class="flex items-center gap-2 px-4 py-1 rounded-md bg-yellow-300 my-2"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          class="stroke-current shrink-0 w-4 h-4"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          ></path>
-        </svg>
-        <span class="text-sm"
-          >Debes completar tu perfil antes de poder agregar mascotas</span
-        >
-      </section>
 
       <h2 class="color-secondary">Información</h2>
       <form @submit.prevent="handleSubmitForm" class="flex flex-col">
@@ -199,6 +182,7 @@ watch(
                 value: 'Años',
               },
             ]"
+            :setFieldValue="setFieldValue"
           />
         </article>
 
@@ -258,21 +242,16 @@ watch(
 
         <CommonsDivider />
 
-        <MyPetsAddContactForm
-          @new-contact="handleAddNewContact"
-          :disabled="!isProfileCompleted"
-        />
-
+        <MyPetsAddContactForm @new-contact="handleAddNewContact" />
         <PublicOwnersSection class="mt-3" :owners-list="ownerList" hideTitle />
 
         <CommonsDivider />
 
         <CommonsPrimaryButton
           text="Añadir mascota"
-          class="grow"
+          class="btn-primary btn-sm"
           type="submit"
-          :variant="!isProfileCompleted ? 'disabled' : 'primary'"
-          :disabled="!isProfileCompleted"
+          :pending="isLoading"
         />
       </form>
     </section>

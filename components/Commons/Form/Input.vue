@@ -18,6 +18,7 @@ interface InputProps {
   options?: Option[]
   multipleInput?: boolean
   multipleInputOptions?: Option[]
+  setFieldName?: any
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
@@ -26,6 +27,10 @@ const props = withDefaults(defineProps<InputProps>(), {
 })
 
 const isRequired = props.rules?.includes('required')
+
+const updateValue = (value: any) => {
+  console.log('value', value)
+}
 </script>
 
 <template>
@@ -58,12 +63,13 @@ const isRequired = props.rules?.includes('required')
       :as="props.as ? props.as : undefined"
       class="py-3 px-4"
       style="height: 100%"
+      @update:model-value="(value) => updateValue(value)"
     />
     <div v-if="props.multipleInput" class="w-auto bg-slate-100 rounded-md">
       <Field
+        :name="props.selectName ?? ''"
         as="select"
         rules="required"
-        :name="props.selectName ?? ''"
         class="flex py-3 w-20 pl-3 mr-3 rounded-l-none bg-slate-100"
         style="height: 100%"
       >
