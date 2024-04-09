@@ -9,15 +9,6 @@ const { $api } = useNuxtApp()
 const route = useRoute()
 const id = String(route.params.id)
 
-const ownerList = ref<PetOwner[]>([
-  {
-    ownerName: 'Micaela Bautista',
-    ownerType: 'Dueña',
-    cellphone: '1176845607',
-    whatsapp: '1176845607',
-  },
-])
-
 const getPetInformation = async () => {
   try {
     return await $api.pets.petInformation(id)
@@ -43,8 +34,8 @@ const { data, pending, refresh } = useAsyncData(
 </script>
 
 <template>
-  <section class="flex items-center justify-center">
-    <div class="min-h-screen max-w-md w-full bg-[#f8f8f8]">
+  <section class="flex flex-col items-center gap-2 max-w-md">
+    <div class="bg-[#f8f8f8] w-full">
       <section class="flex flex-col">
         <PublicImageSection />
         <section class="flex flex-col gap-6 px-6 z-10 pb-6">
@@ -62,8 +53,7 @@ const { data, pending, refresh } = useAsyncData(
           />
           <PublicDescriptionInformation :description="data?.pet?.description" />
           <CommonsDivider />
-          <PublicOwnersSection :owners-list="data?.pet?.owners" />
-          <CommonsPrimaryButton text="Editar perfil" />
+          <PublicOwnersSection :owners-list="data?.pet?.owners!" />
         </section>
       </section>
     </div>

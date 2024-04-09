@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import type { Pet } from '~/repositories/types'
+
 const { $api } = useNuxtApp()
 const authStore = useAuthStore()
 const { profileIsCompleted } = storeToRefs(authStore)
+const addPet = ref<any>()
+const selectedCard = ref<Pet>()
 
 const getMyPets = async () => {
   try {
@@ -21,6 +25,11 @@ const { data, pending, refresh } = useAsyncData(
     lazy: false,
   },
 )
+
+const openEditModal = (id: string) => {
+  selectedCard.value = data.value?.find((pet) => pet.id === id)
+  addPet.value.handleClick()
+}
 </script>
 
 <template>
@@ -29,19 +38,20 @@ const { data, pending, refresh } = useAsyncData(
     <div class="grid-section gap-2">
       <MyPetsCard
         v-for="pet in data"
-        :key="pet?.id"
-        :id="pet?.id"
-        :name="pet?.name"
-        :qrCode="pet?.qrCode"
+        :key="pet.id"
+        :id="pet.id"
+        :name="pet.name"
+        :qrCode="pet.qrCode"
+        :refresh="refresh"
+        @open-edit-modal="(id) => openEditModal(id)"
       />
-      <MyPetsCard
-        v-for="pet in data"
-        :key="pet?.id"
-        :id="pet?.id"
-        :name="pet?.name"
-        :qrCode="pet?.qrCode"
+      <MyPetsAddPet
+        ref="addPet"
+        v-if="profileIsCompleted"
+        :loading="pending"
+        :preload-pet="selectedCard"
+        @addPet="refresh"
       />
-      <MyPetsAddPet v-if="profileIsCompleted" />
     </div>
   </article>
 </template>

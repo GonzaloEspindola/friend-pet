@@ -18,7 +18,7 @@ interface InputProps {
   options?: Option[]
   multipleInput?: boolean
   multipleInputOptions?: Option[]
-  setFieldName?: any
+  inputClass?: string
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
@@ -27,10 +27,6 @@ const props = withDefaults(defineProps<InputProps>(), {
 })
 
 const isRequired = props.rules?.includes('required')
-
-const updateValue = (value: any) => {
-  console.log('value', value)
-}
 </script>
 
 <template>
@@ -61,9 +57,7 @@ const updateValue = (value: any) => {
       :type="props.as ? undefined : props.type"
       :placeholder="props.placeholder"
       :as="props.as ? props.as : undefined"
-      class="py-3 px-4"
-      style="height: 100%"
-      @update:model-value="(value) => updateValue(value)"
+      :class="{ 'py-3 px-4': !inputClass, 'rounded-md': inputClass }"
     />
     <div v-if="props.multipleInput" class="w-auto bg-slate-100 rounded-md">
       <Field

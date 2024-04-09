@@ -6,17 +6,12 @@ interface User {
   password?: string
 }
 
-const loginErrors = {
-  401: 'Credenciales inválidas',
-} as { [key: string]: any }
-
 const { signIn } = useAuth()
-const { handleSubmit } = useForm<User>()
-const loginError = ref()
+const { handleSubmit, errors } = useForm<User>()
+const loginError = ref<any>()
 
 const onSignInError = (error: any) => {
-  const errorCode = error.data?.statusCode
-  loginError.value = loginErrors[errorCode] ?? loginErrors[401]
+  loginError.value = error?.data
 }
 
 const onSubmit = handleSubmit(async (user: User) => {
@@ -25,102 +20,86 @@ const onSubmit = handleSubmit(async (user: User) => {
 </script>
 
 <template>
-  <section class="flex items-center justify-center">
-    <div class="flex flex-col min-h-screen max-w-md w-full bg-primary">
-      <article class="h-[300px] w-full">
-        <img
-          src="/assets/examples/pupi1.jpg"
-          alt="Imagen de perro"
-          class="h-[300px] w-full object-cover"
-        />
-      </article>
+  <div class="flex flex-col min-h-screen max-w-md w-full bg-white">
+    <article class="h-[300px] w-full">
+      <img
+        src="/assets/examples/pupi1.jpg"
+        alt="Imagen de perro"
+        class="h-[300px] w-full object-cover"
+      />
+    </article>
 
-      <article class="flex flex-col px-6 container relative grow">
-        <h2 class="text-center"><strong>Inicia sesión</strong></h2>
+    <article class="flex flex-col px-6 container relative flex-1 py-4">
+      <h3 class="text-center text-secondary">Inicia Sesión</h3>
+      <p class="text-neutral text-xs font-semibold text-center p-2">
+        Inicia sesión para comenzar a generar perfiles para tus mascotas
+      </p>
 
-        <form
-          class="flex flex-col justify-between grow py-10"
-          @submit.prevent="onSubmit"
-        >
-          <section class="flex flex-col gap-6">
-            <div>
-              <label for="email" class="color-secondary text-sm">Email:</label>
-              <label class="input input-bordered flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  class="w-4 h-4 opacity-70"
-                >
-                  <path
-                    d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z"
-                  />
-                  <path
-                    d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z"
-                  />
-                </svg>
-                <Field
-                  id="email"
-                  name="email"
-                  rules="required"
-                  type="text"
-                  placeholder="Pupencio"
-                />
-              </label>
+      <section class="flex flex-col flex-1 gap-6 mt-4">
+        <form class="flex flex-col flex-1 gap-2">
+          <div>
+            <CommonsFormInput
+              name="email"
+              label="Email:"
+              rules="required"
+              type="email"
+              placeholder="test@friendpet.com"
+              :input-error="errors"
+            />
+          </div>
+
+          <div>
+            <CommonsFormInput
+              name="password"
+              label="Contraseña:"
+              rules="required"
+              type="password"
+              placeholder="********"
+              :input-error="errors"
+            />
+          </div>
+
+          <section v-if="loginError">
+            <div
+              v-if="Array.isArray(loginError?.message)"
+              v-for="error in loginError?.message"
+              role="alert"
+              class="alert alert-error rounded-sm p-2 flex justify-center"
+            >
+              <span class="text-sm text-white">{{ error }}</span>
             </div>
 
-            <div class="flex flex-col">
-              <label for="password" class="color-secondary text-sm"
-                >Contraseña:</label
-              >
-              <label class="input input-bordered flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  class="w-4 h-4 opacity-70"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                <Field
-                  id="password"
-                  name="password"
-                  rules="required"
-                  type="password"
-                  placeholder="********"
-                />
-              </label>
-              <a
-                href="#"
-                class="color-span text-sm text-right hover:text-[#c74123]"
-                >Has olvidado la contraseña?</a
-              >
+            <div
+              v-else
+              role="alert"
+              class="alert alert-error rounded-sm p-2 flex justify-center"
+            >
+              <span class="text-sm text-white">{{ loginError?.message }}</span>
             </div>
           </section>
-
-          <div class="flex flex-col gap-2">
-            <CommonsPrimaryButton text="Inicia Sesión" type="submit" />
-            <label class="text-sm text-center"
-              >Aun no tienes una cuenta?
-              <a href="/auth/register" class="color-span hover:text-[#c74123]"
-                >Regístrate</a
-              ></label
-            >
-          </div>
         </form>
-      </article>
-    </div>
-  </section>
+
+        <div class="flex flex-col gap-2 justify-end">
+          <CommonsPrimaryButton
+            text="Inicia Sesión"
+            @click.prevent="onSubmit"
+          />
+          <label class="text-sm text-center"
+            >Aun no tienes una cuenta?
+            <a href="/auth/register" class="color-span hover:text-success"
+              >Regístrate</a
+            ></label
+          >
+        </div>
+      </section>
+    </article>
+  </div>
 </template>
 
 <style scoped>
 .container::before {
   content: '';
-  background-color: #f7f7f7;
+  background-color: white;
   width: 100%;
   height: 30px;
   left: 0;

@@ -1,3 +1,5 @@
+import type { qrOptions } from './qr'
+
 export interface PetOwner {
   ownerName: string
   ownerType: string
@@ -19,12 +21,12 @@ export interface Pet {
 }
 
 export interface AddPetPayload {
-  address: string
-  age: string
-  description: string
-  gender: string
   name: string
-  specie: string
+  age: string
   weight: string
+  address: string
+  gender: string
+  specie: string
+  description: string
   ownersList: PetOwner[]
 }

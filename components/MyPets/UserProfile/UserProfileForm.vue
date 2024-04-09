@@ -21,7 +21,7 @@ const updateProfile = async () => {
   try {
     isLoading.value = true
     await $api.user.updateProfile(values)
-    showToast('Perfil actualizado correctamente')
+    showToast('Perfil actualizado correctamente', 'success')
     await useNuxtApp().$auth.fetchUser()
   } catch (error) {
     showToast('Error al actualizar perfil')
@@ -34,7 +34,7 @@ const handleSubmitForm = () => {
   const { cellphone, ownerName, ownerTypePreference, whatsApp } = values
 
   if (!cellphone || !ownerName || !ownerTypePreference || !whatsApp) {
-    return showToast('Completa todos tus datos, incluyendo tu foto')
+    return showToast('Completa todos tus datos, incluyendo tu foto', 'error')
   }
 
   payload.value.set('ownerName', ownerName)

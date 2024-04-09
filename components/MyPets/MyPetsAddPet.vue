@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { useForm, Form } from 'vee-validate'
 import type { PetOwner } from '../types'
-import type { AddPetPayload } from '~/repositories/types'
-import vueQr from 'vue-qr/src/packages/vue-qr.vue'
-
-const NUXT_PUBLIC_API_BASE = process.env.NUXT_PUBLIC_API_BASE
+import type { AddPetPayload, Pet } from '~/repositories/types'
+import { type qrOptions } from '~/repositories/types/qr'
+import { ageOptions } from '~/utils/const'
 
 interface AddPetForm {
   name: string
@@ -16,13 +15,26 @@ interface AddPetForm {
   description: string
   owners: PetOwner[]
   ageSelect: string
+  weightSelect: string
 }
 
+interface AddPetEmits {
+  (e: 'addPet'): void
+}
+
+interface AddPetProps {
+  loading: boolean
+  preloadPet?: Pet
+}
+
+const emit = defineEmits<AddPetEmits>()
+const props = defineProps<AddPetProps>()
 const addPetModal = ref<any>()
 const authStore = useAuthStore()
 const { user, profileIsCompleted } = storeToRefs(authStore)
 const { $api } = useNuxtApp()
-const { values, handleSubmit, errors, setFieldValue } = useForm<AddPetForm>({})
+const { values, handleSubmit, errors, setFieldValue, resetForm } =
+  useForm<AddPetForm>()
 const payload = ref<AddPetPayload>({
   address: '',
   age: '',
@@ -35,6 +47,8 @@ const payload = ref<AddPetPayload>({
 })
 const ownerList = ref<PetOwner[]>([])
 const isLoading = ref<boolean>(false)
+const selectedCard = computed(() => props.preloadPet)
+const isEditMode = ref<boolean>(false)
 
 const handleClick = () => {
   addPetModal.value.handleOpenModal()
@@ -47,7 +61,7 @@ const handleAddNewContact = (newContact: any) => {
 const addPet = async () => {
   try {
     isLoading.value = true
-    return await $api.pets.myPets()
+    return await $api.pets.addPet(payload)
   } catch (error) {
     showToast('Ha ocurrido un error al agregar a tu mascota')
   } finally {
@@ -55,43 +69,54 @@ const addPet = async () => {
   }
 }
 
-const handleSubmitForm = handleSubmit(() => {
+const editPet = async () => {
+  try {
+    isLoading.value = true
+    return await $api.pets.editPet(payload, selectedCard.value?.id!)
+  } catch (error) {
+    showToast('Ha ocurrido un error al agregar a tu mascota')
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const handleSubmitForm = handleSubmit(async () => {
   payload.value.name = values.name
   payload.value.address = values.address
-  payload.value.age = `${values.age}`
-  payload.value.weight = `${values.weight}`
+  payload.value.age = `${values.age} ${values.ageSelect}`
+  payload.value.weight = `${values.weight} ${values.weightSelect}`
   payload.value.description = values.description
   payload.value.gender = values.gender
   payload.value.specie = values.specie
   payload.value.ownersList = ownerList.value.slice()
 
-  console.log('values', values)
+  await addPet()
 
-  addPet()
+  emit('addPet')
+  addPetModal.value.handleCloseModal()
 })
 
-const qrStyleOptions = {
-  data: {
-    scale: 15,
-  },
-  timing: {
-    scale: 10,
-    protectors: false,
-  },
-  alignment: {
-    scale: 10,
-    protectors: true,
-  },
-  cornerAlignment: {
-    scale: 10,
-    protectors: false,
-  },
-}
+const handleEditPet = handleSubmit(async () => {
+  payload.value.name = values.name
+  payload.value.address = values.address
+  payload.value.age = `${values.age} ${values.ageSelect}`
+  payload.value.weight = `${values.weight} ${values.weightSelect}`
+  payload.value.description = values.description
+  payload.value.gender = values.gender
+  payload.value.specie = values.specie
+  payload.value.ownersList = ownerList.value.slice()
+
+  await editPet()
+  isEditMode.value = false
+  resetForm()
+  emit('addPet')
+  addPetModal.value.handleCloseModal()
+})
 
 watch(
   user,
   () => {
-    if (profileIsCompleted) {
+    if (profileIsCompleted && !selectedCard.value) {
       ownerList.value.push({
         ownerName: user?.value?.profile.ownerName,
         ownerType: user?.value?.profile.ownerTypePreference,
@@ -104,32 +129,63 @@ watch(
     immediate: true,
   },
 )
+
+watch(selectedCard, () => {
+  if (selectedCard.value) {
+    isEditMode.value = true
+    const { name, address, specie, age, gender, weight, description, owners } =
+      selectedCard.value
+
+    const finalAge = Number(age.split(' ')[0])
+    const ageSelect = age.split(' ')[1]
+
+    const finalWeight = Number(weight.split(' ')[0])
+    const weightSelect = weight.split(' ')[1]
+
+    setFieldValue('name', name)
+    setFieldValue('address', address)
+    setFieldValue('specie', specie)
+    setFieldValue('age', finalAge)
+    setFieldValue('gender', gender)
+    setFieldValue('weight', finalWeight)
+    setFieldValue('description', description)
+    setFieldValue('ageSelect', ageSelect)
+    setFieldValue('weightSelect', weightSelect)
+
+    ownerList.value = owners
+  }
+})
+
+defineExpose({
+  handleClick,
+})
 </script>
 
 <template>
-  <CommonsPrimaryButton
-    text="Añadir mascota"
-    variant="secondary"
-    showIcon
+  <div
+    class="flex flex-col p-2 rounded-md drop-shadow-md select-none border hover:border-primary hover:cursor-pointer hover:color-primary hover:text-primary"
     @click="handleClick"
-  />
+  >
+    <article class="flex items-center justify-center h-40">
+      <img
+        src="/assets/svg/add.png"
+        alt="Icono para agregar mascota"
+        class="h-26 w-26 rounded-md"
+      />
+    </article>
+    <p class="text-center text-white">
+      {{ props.loading ? 'Cargando...' : 'Añadir Mascota' }}
+    </p>
+  </div>
 
-  <CommonsModal ref="addPetModal" title="Añadir nueva mascota">
+  <CommonsModal
+    ref="addPetModal"
+    title="Añadir nueva mascota"
+    :reset="resetForm"
+  >
     <section>
-      <article>
-        <div class="flex justify-center items-center">
-          <vue-qr
-            :text="`${NUXT_PUBLIC_API_BASE}/qr/`"
-            qid="testid"
-            colorLight="white"
-            colorDark="black"
-            :components="qrStyleOptions"
-          ></vue-qr>
-        </div>
-      </article>
-
       <h2 class="color-secondary">Información</h2>
-      <form @submit.prevent="handleSubmitForm" class="flex flex-col">
+      <form class="flex flex-col">
         <article>
           <CommonsFormInput
             name="name"
@@ -172,17 +228,7 @@ watch(
             :input-error="errors"
             selectName="ageSelect"
             multipleInput
-            :multiple-input-options="[
-              {
-                text: 'Meses',
-                value: 'Meses',
-              },
-              {
-                text: 'Años',
-                value: 'Años',
-              },
-            ]"
-            :setFieldValue="setFieldValue"
+            :multiple-input-options="ageOptions"
           />
         </article>
 
@@ -217,16 +263,7 @@ watch(
             :input-error="errors"
             selectName="weightSelect"
             multipleInput
-            :multiple-input-options="[
-              {
-                text: 'Gramos',
-                value: 'Gramos',
-              },
-              {
-                text: 'Kilogramos',
-                value: 'Kilogramos',
-              },
-            ]"
+            :multiple-input-options="weightOptions"
           />
         </article>
 
@@ -248,10 +285,19 @@ watch(
         <CommonsDivider />
 
         <CommonsPrimaryButton
+          v-if="!isEditMode"
           text="Añadir mascota"
           class="btn-primary btn-sm"
-          type="submit"
           :pending="isLoading"
+          @click="handleSubmitForm"
+        />
+
+        <CommonsPrimaryButton
+          v-if="isEditMode"
+          text="Editar mascota"
+          class="btn-primary btn-sm"
+          :pending="isLoading"
+          @click="handleEditPet"
         />
       </form>
     </section>

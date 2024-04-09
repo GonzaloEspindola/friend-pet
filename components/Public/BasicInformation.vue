@@ -6,6 +6,12 @@ interface BasicInformationProps {
 }
 
 const props = defineProps<BasicInformationProps>()
+
+const goMaps = () => {
+  const url =
+    'https://www.google.com/maps?q=' + encodeURIComponent(props.address!)
+  window.open(url, '_blank')
+}
 </script>
 
 <template>
@@ -26,8 +32,15 @@ const props = defineProps<BasicInformationProps>()
       />
     </div>
     <div class="flex gap-4 items-center">
-      <p class="color-span">{{ props.address ?? '- - - - - - - -' }}</p>
-      <p class="color-span px-4 border rounded-xl text-xs">2.5 KM</p>
+      <p class="color-span">
+        {{ props.address ?? '- - - - - - - -' }}
+        <a
+          @click="goMaps()"
+          class="text-sm text-primary hover:cursor-pointer hover:font-bold"
+        >
+          Ver en mapa
+        </a>
+      </p>
     </div>
   </article>
 </template>

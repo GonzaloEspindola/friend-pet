@@ -1,3 +1,3 @@
 <template>
-  <div class="divider"></div>
+  <div class="divider my-0"></div>
 </template>

@@ -3,6 +3,7 @@ interface ModalProps {
   title: string
   showFooter?: boolean
   size?: string
+  reset?: any
 }
 
 const props = withDefaults(defineProps<ModalProps>(), {
@@ -16,6 +17,7 @@ const handleOpenModal = () => {
 }
 
 const handleCloseModal = () => {
+  props.reset()
   modal.value.close()
 }
 

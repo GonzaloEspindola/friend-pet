@@ -5,10 +5,16 @@
 
 html {
   font-family: 'Poppins', sans-serif;
-  background-image: url('/assets/svg/background.svg');
+  background-color: #dfdbe5;
+  background-image: url('/assets/examples/background.jpg');
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
+body {
+  color: #1e1c32;
+}
+
 h2 {
-  color: #d0d0d1;
+  color: #68676c;
 }
