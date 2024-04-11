@@ -4,6 +4,7 @@ export interface OwnerCardProps {
   ownerType: string
   cellphone: number
   whatsApp: number
+  url?: string
 }
 
 const props = defineProps<OwnerCardProps>()
@@ -15,6 +16,14 @@ const props = defineProps<OwnerCardProps>()
   >
     <section>
       <img
+        v-if="props.url"
+        :src="props.url"
+        alt="Foto del dueño del perro"
+        class="rounded-xl h-20 w-20 object-cover"
+      />
+
+      <img
+        v-else
         src="/assets/examples/mica.jpg"
         alt="Foto del dueño del perro"
         class="rounded-xl h-20 w-20 object-cover"

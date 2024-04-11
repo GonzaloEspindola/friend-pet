@@ -18,4 +18,11 @@ export class UserRepository extends HttpRepository {
       body: payload,
     })
   }
+
+  updateProfilePhoto(payload: Ref<FormData>): Promise<any> {
+    return this.httpClient<any>(`${this.RESOURCE}/upload`, {
+      method: 'POST',
+      body: payload.value,
+    })
+  }
 }

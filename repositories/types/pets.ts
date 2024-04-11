@@ -5,6 +5,7 @@ export interface PetOwner {
   ownerType: string
   cellphone: number
   whatsApp: number
+  url?: string
 }
 
 export interface Pet {

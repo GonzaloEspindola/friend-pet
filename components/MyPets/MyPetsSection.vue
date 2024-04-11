@@ -27,6 +27,8 @@ const { data, pending, refresh } = useAsyncData(
 )
 
 const openEditModal = (id: string) => {
+  console.log('data', data.value)
+
   selectedCard.value = data.value?.find((pet) => pet.id === id)
   addPet.value.handleClick()
 }

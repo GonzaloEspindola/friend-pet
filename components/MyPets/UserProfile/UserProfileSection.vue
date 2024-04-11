@@ -5,7 +5,7 @@ const { profileIsCompleted } = storeToRefs(authStore)
 
 <template>
   <section
-    class="flex flex-col p-4 bg-white rounded-md drop-shadow-md md:flex-row flex-wrap"
+    class="flex flex-col p-4 gap-2 bg-white rounded-md drop-shadow-md w-full md:flex-row flex-wrap"
   >
     <MyPetsUserProfileForm />
     <MyPetsUserProfileAlert :profile-is-completed="profileIsCompleted" />

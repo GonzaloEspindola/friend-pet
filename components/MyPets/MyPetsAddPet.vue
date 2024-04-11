@@ -122,6 +122,7 @@ watch(
         ownerType: user?.value?.profile.ownerTypePreference,
         cellphone: user?.value?.profile.cellphone,
         whatsApp: user?.value?.profile.whatsApp,
+        url: user?.value?.profile.url,
       })
     }
   },
