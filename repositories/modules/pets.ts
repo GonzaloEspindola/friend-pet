@@ -16,14 +16,14 @@ export class PetsRepository extends HttpRepository {
     })
   }
 
-  async addPet(payload: Ref<AddPetPayload>): Promise<Pet> {
+  async addPet(payload: Ref<FormData>): Promise<Pet> {
     return await this.httpClient<Pet>(`${this.RESOURCE}/add-pet`, {
       method: 'POST',
       body: payload.value,
     })
   }
 
-  async editPet(payload: Ref<AddPetPayload>, id: string): Promise<Pet> {
+  async editPet(payload: Ref<FormData>, id: string): Promise<Pet> {
     return await this.httpClient<Pet>(`${this.RESOURCE}/edit-pet/${id}`, {
       method: 'PATCH',
       body: payload.value,

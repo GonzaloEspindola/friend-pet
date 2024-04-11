@@ -27,8 +27,6 @@ const { data, pending, refresh } = useAsyncData(
 )
 
 const openEditModal = (id: string) => {
-  console.log('data', data.value)
-
   selectedCard.value = data.value?.find((pet) => pet.id === id)
   addPet.value.handleClick()
 }
@@ -44,6 +42,7 @@ const openEditModal = (id: string) => {
         :id="pet.id"
         :name="pet.name"
         :qrCode="pet.qrCode"
+        :image-url="pet.gallery[0]"
         :refresh="refresh"
         @open-edit-modal="(id) => openEditModal(id)"
       />

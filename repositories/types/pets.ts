@@ -19,6 +19,7 @@ export interface Pet {
   description: string
   owners: PetOwner[]
   qrCode: string
+  gallery: string[]
 }
 
 export interface AddPetPayload {

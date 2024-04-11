@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useForm, Form } from 'vee-validate'
+import { useForm, Form, Field } from 'vee-validate'
 import type { PetOwner } from '../types'
-import type { AddPetPayload, Pet } from '~/repositories/types'
-import { type qrOptions } from '~/repositories/types/qr'
+import type { Pet } from '~/repositories/types'
 import { ageOptions } from '~/utils/const'
 
 interface AddPetForm {
@@ -16,6 +15,7 @@ interface AddPetForm {
   owners: PetOwner[]
   ageSelect: string
   weightSelect: string
+  photo: File
 }
 
 interface AddPetEmits {
@@ -35,16 +35,7 @@ const { user, profileIsCompleted } = storeToRefs(authStore)
 const { $api } = useNuxtApp()
 const { values, handleSubmit, errors, setFieldValue, resetForm } =
   useForm<AddPetForm>()
-const payload = ref<AddPetPayload>({
-  address: '',
-  age: '',
-  description: '',
-  gender: '',
-  name: '',
-  specie: '',
-  weight: '',
-  ownersList: [],
-})
+const payload = ref<FormData>(new FormData())
 const ownerList = ref<PetOwner[]>([])
 const isLoading = ref<boolean>(false)
 const selectedCard = computed(() => props.preloadPet)
@@ -81,14 +72,15 @@ const editPet = async () => {
 }
 
 const handleSubmitForm = handleSubmit(async () => {
-  payload.value.name = values.name
-  payload.value.address = values.address
-  payload.value.age = `${values.age} ${values.ageSelect}`
-  payload.value.weight = `${values.weight} ${values.weightSelect}`
-  payload.value.description = values.description
-  payload.value.gender = values.gender
-  payload.value.specie = values.specie
-  payload.value.ownersList = ownerList.value.slice()
+  payload.value.set('name', values.name)
+  payload.value.set('address', values.address)
+  payload.value.set('age', `${values.age} ${values.ageSelect}`)
+  payload.value.set('weight', `${values.weight} ${values.weightSelect}`)
+  payload.value.set('description', values.description)
+  payload.value.set('gender', values.gender)
+  payload.value.set('specie', values.specie)
+  payload.value.set('photo', values.photo)
+  payload.value.set('ownersList', JSON.stringify(ownerList.value))
 
   await addPet()
 
@@ -97,14 +89,15 @@ const handleSubmitForm = handleSubmit(async () => {
 })
 
 const handleEditPet = handleSubmit(async () => {
-  payload.value.name = values.name
-  payload.value.address = values.address
-  payload.value.age = `${values.age} ${values.ageSelect}`
-  payload.value.weight = `${values.weight} ${values.weightSelect}`
-  payload.value.description = values.description
-  payload.value.gender = values.gender
-  payload.value.specie = values.specie
-  payload.value.ownersList = ownerList.value.slice()
+  payload.value.set('name', values.name)
+  payload.value.set('address', values.address)
+  payload.value.set('age', `${values.age} ${values.ageSelect}`)
+  payload.value.set('weight', `${values.weight} ${values.weightSelect}`)
+  payload.value.set('description', values.description)
+  payload.value.set('gender', values.gender)
+  payload.value.set('specie', values.specie)
+  payload.value.set('photo', values.photo)
+  payload.value.set('ownersList', JSON.stringify(ownerList.value))
 
   await editPet()
   isEditMode.value = false
@@ -120,8 +113,8 @@ watch(
       ownerList.value.push({
         ownerName: user?.value?.profile.ownerName,
         ownerType: user?.value?.profile.ownerTypePreference,
-        cellphone: user?.value?.profile.cellphone,
-        whatsApp: user?.value?.profile.whatsApp,
+        cellphone: Number(user?.value?.profile.cellphone),
+        whatsApp: Number(user?.value?.profile.whatsApp),
         url: user?.value?.profile.url,
       })
     }
@@ -186,7 +179,7 @@ defineExpose({
   >
     <section>
       <h2 class="color-secondary">Información</h2>
-      <form class="flex flex-col">
+      <form class="flex flex-col gap-2">
         <article>
           <CommonsFormInput
             name="name"
@@ -276,6 +269,18 @@ defineExpose({
             placeholder="Pequeño y blanco"
             :input-error="errors"
           />
+        </article>
+
+        <article>
+          <label for="">
+            <span class="label-text">Imagen:</span>
+
+            <Field
+              name="photo"
+              type="file"
+              class="file-input file-input-bordered file-input-md w-full mt-1"
+            />
+          </label>
         </article>
 
         <CommonsDivider />

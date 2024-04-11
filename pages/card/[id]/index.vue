@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { PetOwner } from '~/repositories/types'
-
 definePageMeta({
   auth: false,
 })
@@ -37,7 +35,7 @@ const { data, pending, refresh } = useAsyncData(
   <section class="flex flex-col items-center gap-2 max-w-md">
     <div class="bg-[#f8f8f8] w-full">
       <section class="flex flex-col">
-        <PublicImageSection />
+        <PublicImageSection :images="data?.pet?.gallery!" />
         <section class="flex flex-col gap-6 px-6 z-10 pb-6">
           <PublicBasicInformation
             :name="data?.pet?.name!"

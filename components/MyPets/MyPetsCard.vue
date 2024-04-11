@@ -3,6 +3,7 @@ interface PetCardProps {
   id: string
   name: string
   qrCode: string
+  imageUrl: string
   refresh: any
 }
 
@@ -20,7 +21,7 @@ const openEditModal = (id: string) => {
 
 <template>
   <div class="flex flex-col gap-2 p-2 bg-white rounded-md drop-shadow-md">
-    <MyPetsImage />
+    <MyPetsImage :url="props.imageUrl" />
     <article class="flex justify-between items-center gap-2">
       <MyPetsCardActionsShowQR :id="props.id" :qr-code="props.qrCode" />
       <MyPetsCardActionsDetail :id="props.id" />

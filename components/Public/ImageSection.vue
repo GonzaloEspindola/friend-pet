@@ -1,14 +1,29 @@
+<script setup lang="ts">
+interface Props {
+  images: string[]
+}
+
+const props = defineProps<Props>()
+</script>
+
 <template>
-  <section class="relative">
+  <div class="carousel w-full relative">
     <section class="ola h-[100px] w-full"></section>
-    <article class="h-[400px] w-full">
-      <img
-        src="/assets/examples/pupi2.jpeg"
-        alt="Foto de mascota"
-        class="object-cover object-center h-full w-full"
-      />
-    </article>
-  </section>
+    <div
+      v-for="image in props.images"
+      :key="image"
+      id="slide1"
+      class="carousel-item relative h-[300px] w-full"
+    >
+      <img :src="image" class="w-full object-cover" />
+      <div
+        class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
+      >
+        <a href="#slide4" class="btn btn-circle btn-xs">❮</a>
+        <a href="#slide2" class="btn btn-circle btn-xs">❯</a>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
