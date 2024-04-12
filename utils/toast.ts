@@ -1,4 +1,8 @@
-export function showToast(message: string, variant: string = 'success') {
+export function showToast(
+  message: string,
+  variant: string = 'success',
+  bg: string = '',
+) {
   const classVariant = `alert-${variant}`
   const toastContainer = document.createElement('div')
   toastContainer.classList.add('toast')
@@ -7,6 +11,7 @@ export function showToast(message: string, variant: string = 'success') {
   alertDiv.classList.add('alert')
   alertDiv.classList.add(classVariant)
   alertDiv.classList.add(`text-white`)
+  alertDiv.classList.add(`${bg}`)
 
   const messageSpan = document.createElement('span')
   messageSpan.textContent = message

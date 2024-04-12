@@ -110,13 +110,21 @@ watch(
   user,
   () => {
     if (profileIsCompleted && !selectedCard.value) {
-      ownerList.value.push({
-        ownerName: user?.value?.profile.ownerName,
-        ownerType: user?.value?.profile.ownerTypePreference,
-        cellphone: Number(user?.value?.profile.cellphone),
-        whatsApp: Number(user?.value?.profile.whatsApp),
-        url: user?.value?.profile.url,
-      })
+      if (ownerList.value.length === 0) {
+        ownerList.value.push({
+          ownerName: user?.value?.profile.ownerName,
+          ownerType: user?.value?.profile.ownerTypePreference,
+          cellphone: Number(user?.value?.profile.cellphone),
+          whatsApp: Number(user?.value?.profile.whatsApp),
+          url: user?.value?.profile.url,
+        })
+      } else {
+        ownerList.value[0].ownerName = user?.value?.profile.ownerName
+        ownerList.value[0].ownerType = user?.value?.profile.ownerType
+        ownerList.value[0].cellphone = user?.value?.profile.cellphone
+        ownerList.value[0].whatsApp = user?.value?.profile.whatsApp
+        ownerList.value[0].url = user?.value?.profile.url
+      }
     }
   },
   {

@@ -9,13 +9,16 @@ interface User {
 const { signIn } = useAuth()
 const { handleSubmit, errors } = useForm<User>()
 const loginError = ref<any>()
+const isLoading = ref<boolean>(false)
 
 const onSignInError = (error: any) => {
   loginError.value = error?.data
 }
 
 const onSubmit = handleSubmit(async (user: User) => {
+  isLoading.value = true
   await signIn(user, onSignInError)
+  isLoading.value = false
 })
 </script>
 
@@ -82,6 +85,7 @@ const onSubmit = handleSubmit(async (user: User) => {
         <div class="flex flex-col gap-2 justify-end">
           <CommonsPrimaryButton
             text="Inicia Sesión"
+            :pending="isLoading"
             @click.prevent="onSubmit"
           />
           <label class="text-sm text-center"

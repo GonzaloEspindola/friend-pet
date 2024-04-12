@@ -9,7 +9,7 @@ const props = defineProps<ProfileAlertProps>()
 <template>
   <div
     v-if="!profileIsCompleted"
-    class="flex gap-2 items-center justify-center grow px-2 py-1 mx-2 rounded-md bg-accent"
+    class="flex gap-2 items-center justify-center grow py-1 x-2 rounded-md bg-accent"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
