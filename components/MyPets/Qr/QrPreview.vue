@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import html2canvas from 'html2canvas'
 import { components } from '~/utils/qr_const'
 
 interface Props {
