@@ -16,12 +16,6 @@ const props = defineProps<Props>()
       class="carousel-item relative h-[300px] w-full"
     >
       <img :src="image" class="w-full object-cover" />
-      <div
-        class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-      >
-        <a href="#slide4" class="btn btn-circle btn-xs">❮</a>
-        <a href="#slide2" class="btn btn-circle btn-xs">❯</a>
-      </div>
     </div>
   </div>
 </template>

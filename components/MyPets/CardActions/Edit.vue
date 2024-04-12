@@ -20,6 +20,7 @@ const handleEdit = (id: string) => {
     @click="handleEdit(props.id)"
     title="Editar"
     class="btn btn-accent min-h-0 h-9 w-9 p-0 m-0 rounded-md grow"
+    disabled
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

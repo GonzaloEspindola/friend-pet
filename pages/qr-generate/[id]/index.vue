@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import QrFrameSelection from '~/components/MyPets/Qr/Frame/QrFrameSelection.vue'
-import { type Qr } from '~/repositories/types/qr'
 
 const route = useRoute()
+const router = useRouter()
 const petId = String(route.params.id)
-const qrCodeQuery = route.query.qrCode
 const { $api } = useNuxtApp()
 const frameText = ref<string>('ESCANÉAME!')
 const frameTextColor = ref<string>('#FFFFFF')
@@ -16,9 +15,7 @@ const qrUrl = ref<string>('')
 const isLoading = ref<boolean>(false)
 const getQrInfoLoading = ref<boolean>(false)
 
-const qrCode = computed(() =>
-  qrCodeQuery ? qrCodeQuery.toString() : undefined,
-)
+const qrCode = computed(() => route.query.qrCode?.toString())
 
 const handleChangeFrame = (id: number) => {
   selectedFrame.value = id
@@ -45,49 +42,49 @@ const handleChangeFrameTextColor = (color: string) => {
 }
 
 const handleGenerateQr = async () => {
-  const payload = {
-    selectedFrame: selectedFrame.value,
-    frameColor: frameColor.value,
-    frameText: frameText.value,
-    frameTextColor: frameTextColor.value,
-    backgroundColor: backgroundColor.value,
-    dotsColor: dotsColor.value,
-  }
   try {
+    const payload = {
+      selectedFrame: selectedFrame.value,
+      frameColor: frameColor.value,
+      frameText: frameText.value,
+      frameTextColor: frameTextColor.value,
+      backgroundColor: backgroundColor.value,
+      dotsColor: dotsColor.value,
+    }
+
     isLoading.value = true
     const qrId = await $api.qr.createQr(payload, petId)
-    showToast('Generado correctamente')
+    showToast('Generado correctamente', 'success', 'bg-green-500')
 
-    await navigateTo({
-      path: `/qr-generate/${petId}`,
+    await router.replace({
+      path: router.currentRoute.value.path,
       query: {
         qrCode: qrId,
       },
     })
   } catch (error) {
-    showToast('Ha ocurrido un error al generar el código QR')
+    showToast('Ha ocurrido un error al generar el código QR', 'error')
   } finally {
     isLoading.value = false
   }
 }
 
 const handleUpdateQr = async () => {
-  const payload = {
-    selectedFrame: selectedFrame.value,
-    frameColor: frameColor.value,
-    frameText: frameText.value,
-    frameTextColor: frameTextColor.value,
-    backgroundColor: backgroundColor.value,
-    dotsColor: dotsColor.value,
-  }
-
   try {
+    const payload = {
+      selectedFrame: selectedFrame.value,
+      frameColor: frameColor.value,
+      frameText: frameText.value,
+      frameTextColor: frameTextColor.value,
+      backgroundColor: backgroundColor.value,
+      dotsColor: dotsColor.value,
+    }
+
     isLoading.value = true
     await $api.qr.updateQr(payload, petId)
-    getQrInfo()
-    showToast('Actualizado correctamente')
+    showToast('Actualizado correctamente', 'success', 'bg-green-500')
   } catch (error) {
-    showToast('Ha ocurrido un error al actualizar el código QR')
+    showToast('Ha ocurrido un error al actualizar el código QR', 'error')
   } finally {
     isLoading.value = false
   }
@@ -121,12 +118,13 @@ watch(
   },
   {
     immediate: true,
+    deep: true,
   },
 )
 </script>
 
 <template>
-  <main class="flex flex-col gap-4">
+  <main class="flex flex-col gap-4 md:mt-4">
     <MyPetsQrPreview
       :selected-frame="selectedFrame"
       :frame-color="frameColor"
@@ -157,19 +155,20 @@ watch(
         "
         @dots-color="(dotsColor) => handleChangeDotsColor(dotsColor)"
       />
+
       <CommonsPrimaryButton
         v-if="qrCode"
         text="Actualizar QR"
         class="btn-primary btn-sm"
         :pending="isLoading"
-        @click.prevent="handleUpdateQr"
+        @click="handleUpdateQr"
       />
       <CommonsPrimaryButton
         v-else
         text="Generar QR"
         class="btn-primary btn-sm"
         :pending="isLoading"
-        @click.prevent="handleGenerateQr"
+        @click="handleGenerateQr"
       />
     </section>
   </main>

@@ -3,6 +3,7 @@ interface Props {
   frameColor: string
   text: string
   textColor: string
+  qrUri: string
 }
 
 const props = defineProps<Props>()
@@ -33,9 +34,13 @@ const props = defineProps<Props>()
       class="st2"
       d="M207.2,360.9c2-2.7,3.9-2.1,6.3-0.2C211.4,361.3,209.2,361.4,207.2,360.9z"
     />
-    <foreignObject x="0" y="0" width="100%" height="75%">
-      <slot></slot>
-    </foreignObject>
+    <image
+      :xlink:href="props.qrUri"
+      x="15"
+      y="0"
+      width="90%"
+      height="77%"
+    ></image>
     <g>
       <text
         class="text-3xl font-bold"

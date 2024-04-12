@@ -7,13 +7,19 @@ interface QrFormProps {
   errors?: any
   backgroundColor: string
   dotsColor: string
+  hidden?: boolean
+}
+
+interface Emit {
+  (event: 'update:svg', dataURI: any): void
 }
 
 const props = defineProps<QrFormProps>()
+const emit = defineEmits<Emit>()
 
 const qrStyleOptions = {
   data: {
-    scale: 1,
+    scale: 100,
   },
   timing: {
     scale: 20,
@@ -28,16 +34,22 @@ const qrStyleOptions = {
     protectors: false,
   },
 }
+
+const getDataURL = (dataURI: any) => {
+  emit('update:svg', dataURI)
+}
 </script>
 
 <template>
   <vue-qr
     class="p-6 rounded-md h-full"
+    :style="props.hidden ? 'display: none' : ''"
     :text="`/qr/`"
     qid="testid"
-    :colorLight="backgroundColor"
-    :colorDark="dotsColor"
+    :colorLight="props.backgroundColor"
+    :colorDark="props.dotsColor"
     :margin="10"
     :components="qrStyleOptions"
-  ></vue-qr>
+    :callback="(dataURI: any) => getDataURL(dataURI)"
+  />
 </template>

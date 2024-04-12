@@ -43,7 +43,7 @@ const props = defineProps<OwnerCardProps>()
       </a>
 
       <a
-        :href="'https://api.whatsapp.com/send?phone=' + props.whatsApp"
+        :href="`https://api.whatsapp.com/send?phone=549${props.whatsApp}`"
         target="_blank"
       >
         <img src="/assets/svg/whatsapp.png" class="h-[40px] w-[40px]" />
