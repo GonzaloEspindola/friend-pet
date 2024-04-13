@@ -10,8 +10,8 @@ export class PetsRepository extends HttpRepository {
     })
   }
 
-  async petInformation(id: string): Promise<Pet> {
-    return await this.httpClient<Pet>(`${this.RESOURCE}/${id}`, {
+  async petInformationByQrCode(id: string): Promise<Pet> {
+    return await this.httpClient<Pet>(`${this.RESOURCE}/qr/${id}`, {
       method: 'GET',
     })
   }

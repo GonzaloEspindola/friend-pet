@@ -68,6 +68,7 @@ const downloadQrPng = () => {
         <MyPetsQrForm
           :background-color="backgroundColor"
           :dots-color="dotsColor"
+          :qrUrl="qrUrl"
           hidden
           @update:svg="(dataURI) => (qrUri = dataURI)"
         />
@@ -79,6 +80,7 @@ const downloadQrPng = () => {
             v-if="selectedFrame === 0"
             :background-color="backgroundColor"
             :dots-color="dotsColor"
+            :qrUrl="qrUrl"
           />
           <component
             v-else

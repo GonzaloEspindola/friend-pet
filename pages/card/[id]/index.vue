@@ -9,7 +9,7 @@ const id = String(route.params.id)
 
 const getPetInformation = async () => {
   try {
-    return await $api.pets.petInformation(id)
+    return await $api.pets.petInformationByQrCode(id)
   } catch (error) {
     showToast('Ha ocurrido un error al obtener a tus mascotas')
   }

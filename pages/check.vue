@@ -10,25 +10,14 @@ const authStore = useAuthStore()
 const { user } = storeToRefs(authStore)
 
 const roleRedirect = {
-  admin: '/',
+  admin: '/my-pets',
   default: '/my-pets',
 }
 
 type roleTypes = 'admin'
 
-const roleKeys = computed(
-  () => user.value?.roles?.map(({ name }) => name) ?? [],
-)
-
 const redirectLink = computed(() => {
   let redirectLink = roleRedirect.default
-
-  for (const role of roleKeys.value) {
-    if (roleRedirect[role as roleTypes]) {
-      redirectLink = roleRedirect[role as roleTypes]
-      break
-    }
-  }
   return redirectLink
 })
 

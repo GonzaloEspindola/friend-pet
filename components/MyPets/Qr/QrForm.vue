@@ -8,6 +8,7 @@ interface QrFormProps {
   backgroundColor: string
   dotsColor: string
   hidden?: boolean
+  qrUrl?: string
 }
 
 interface Emit {
@@ -19,19 +20,19 @@ const emit = defineEmits<Emit>()
 
 const qrStyleOptions = {
   data: {
-    scale: 100,
+    scale: 1,
   },
   timing: {
-    scale: 20,
-    protectors: true,
+    scale: 1,
+    protectors: false,
   },
   alignment: {
-    scale: 20,
+    scale: 1,
     protectors: false,
   },
   cornerAlignment: {
-    scale: 20,
-    protectors: false,
+    scale: 1,
+    protectors: true,
   },
 }
 
@@ -44,8 +45,8 @@ const getDataURL = (dataURI: any) => {
   <vue-qr
     class="p-6 rounded-md h-full"
     :style="props.hidden ? 'display: none' : ''"
-    :text="`/qr/`"
-    qid="testid"
+    :text="qrUrl"
+    qid="qr"
     :colorLight="props.backgroundColor"
     :colorDark="props.dotsColor"
     :margin="10"
