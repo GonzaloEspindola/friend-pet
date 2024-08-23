@@ -34,22 +34,22 @@ const handleSubmitForm = handleSubmit(async () => {
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen max-w-md w-full bg-white">
-    <article class="h-[300px] w-full">
-      <img
-        src="/assets/examples/pupi1.jpg"
-        alt="Imagen de perro"
-        class="h-[300px] w-full object-cover"
-      />
+  <div class="flex flex-col min-h-screen bg-white md:flex-row items-center p-1">
+    <article class="w-full h-2/5 bg-primary md:w-3/5 md:h-full rounded-md">
+      <Carousel />
     </article>
 
-    <article class="flex flex-col px-6 container relative flex-1 py-4">
-      <h3 class="text-center text-secondary">Registrarse</h3>
+    <article
+      class="flex flex-col p-8 w-full h-3/5 justify-center md:w-2/5 md:h-full"
+    >
+      <h3 class="text-center text-secondary font-semibold text-xl">
+        Crear tu cuenta
+      </h3>
       <p class="text-neutral text-xs font-semibold text-center p-2">
-        Regístrate para comenzar a generar perfiles para tus mascotas
+        Crea tu cuenta para comenzar a generar perfiles para tus mascotas
       </p>
 
-      <section class="flex flex-col flex-1 gap-6 mt-4">
+      <section class="flex flex-col gap-6 mt-4">
         <form class="flex flex-col flex-1 gap-2" @submit="handleSubmitForm">
           <div>
             <CommonsFormInput
@@ -68,7 +68,7 @@ const handleSubmitForm = handleSubmit(async () => {
               label="Contraseña:"
               rules="required"
               type="password"
-              placeholder="******"
+              placeholder="**********"
               :input-error="errors"
             />
           </div>
@@ -103,8 +103,8 @@ const handleSubmitForm = handleSubmit(async () => {
           />
           <label class="text-sm text-center"
             >Ya tienes cuenta?
-            <a href="/auth/login" class="color-span hover:text-success"
-              >Inicia sesión</a
+            <NuxtLink to="/auth/login" class="text-primary hover:text-success"
+              >Inicia sesión</NuxtLink
             ></label
           >
         </div>
@@ -112,17 +112,3 @@ const handleSubmitForm = handleSubmit(async () => {
     </article>
   </div>
 </template>
-
-<style scoped>
-.container::before {
-  content: '';
-  background-color: white;
-  width: 100%;
-  height: 30px;
-  left: 0;
-  top: -30px;
-  position: absolute;
-  z-index: 100;
-  border-radius: 30px 30px 0 0;
-}
-</style>
