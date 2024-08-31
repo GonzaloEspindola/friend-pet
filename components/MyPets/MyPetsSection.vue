@@ -44,7 +44,7 @@ const openEditModal = (id: string) => {
         :qrCode="pet.qrCode"
         :image-url="pet.gallery[0]"
         :refresh="refresh"
-        @open-edit-modal="(id) => openEditModal(id)"
+        @open-edit-modal="(id: string) => openEditModal(id)"
       />
       <MyPetsAddPet
         ref="addPet"

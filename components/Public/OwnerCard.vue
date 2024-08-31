@@ -24,7 +24,7 @@ const props = defineProps<OwnerCardProps>()
 
       <img
         v-else
-        src="/assets/examples/mica.jpg"
+        src="/assets/img/imagen_no_disponible.jpg"
         alt="Foto del dueño del perro"
         class="rounded-xl h-20 w-20 object-cover"
       />

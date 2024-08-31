@@ -15,7 +15,7 @@ interface AddPetForm {
   owners: PetOwner[]
   ageSelect: string
   weightSelect: string
-  photo: File
+  photos: File[]
 }
 
 interface AddPetEmits {
@@ -79,7 +79,10 @@ const handleSubmitForm = handleSubmit(async () => {
   payload.value.set('description', values.description)
   payload.value.set('gender', values.gender)
   payload.value.set('specie', values.specie)
-  payload.value.set('photo', values.photo)
+
+  for (let i = 0; i < values.photos.length; i++) {
+    payload.value.append('photos', values.photos[i])
+  }
   payload.value.set('ownersList', JSON.stringify(ownerList.value))
 
   await addPet()
@@ -96,7 +99,10 @@ const handleEditPet = handleSubmit(async () => {
   payload.value.set('description', values.description)
   payload.value.set('gender', values.gender)
   payload.value.set('specie', values.specie)
-  payload.value.set('photo', values.photo)
+
+  for (let i = 0; i < values.photos.length; i++) {
+    payload.value.append('photos', values.photos[i])
+  }
   payload.value.set('ownersList', JSON.stringify(ownerList.value))
 
   await editPet()
@@ -165,7 +171,7 @@ defineExpose({
 
 <template>
   <div
-    class="flex flex-col p-2 rounded-md drop-shadow-md select-none border hover:border-primary hover:cursor-pointer hover:color-primary hover:text-primary"
+    class="flex flex-col p-2 text-center text-white rounded-md drop-shadow-md select-none border-2 border-dashed border-white hover:border-primary hover:cursor-pointer hover:color-primary hover:text-primary"
     @click="handleClick"
   >
     <article class="flex items-center justify-center h-40">
@@ -175,9 +181,7 @@ defineExpose({
         class="h-26 w-26 rounded-md"
       />
     </article>
-    <p class="text-center text-white">
-      {{ props.loading ? 'Cargando...' : 'Añadir Mascota' }}
-    </p>
+    {{ props.loading ? 'Cargando...' : 'Añadir Mascota' }}
   </div>
 
   <CommonsModal
@@ -284,9 +288,10 @@ defineExpose({
             <span class="label-text">Imagen:</span>
 
             <Field
-              name="photo"
+              name="photos"
               type="file"
               class="file-input file-input-bordered file-input-md w-full mt-1"
+              multiple
             />
           </label>
         </article>

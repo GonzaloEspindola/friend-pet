@@ -95,7 +95,7 @@ watch(
         />
 
         <span
-          class="absolute inset-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 text-white opacity-0 hover:opacity-100 transition-opacity duration-300"
+          class="text-sm absolute inset-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 text-white opacity-0 hover:opacity-100 transition-opacity duration-300"
         >
           Cambiar imagen
         </span>

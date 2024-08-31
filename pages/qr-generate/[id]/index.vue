@@ -124,7 +124,7 @@ watch(
 </script>
 
 <template>
-  <main class="flex flex-col gap-4 md:mt-4">
+  <main class="flex flex-col gap-4 md:p-4">
     <MyPetsQrPreview
       :selected-frame="selectedFrame"
       :frame-color="frameColor"
@@ -151,9 +151,10 @@ watch(
         :background-color="backgroundColor"
         :dots-color="dotsColor"
         @background-color="
-          (backgroundColor) => handleChangeBackgroundColor(backgroundColor)
+          (backgroundColor: string) =>
+            handleChangeBackgroundColor(backgroundColor)
         "
-        @dots-color="(dotsColor) => handleChangeDotsColor(dotsColor)"
+        @dots-color="(dotsColor: string) => handleChangeDotsColor(dotsColor)"
       />
 
       <CommonsPrimaryButton

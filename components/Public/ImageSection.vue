@@ -7,14 +7,17 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="carousel w-full relative">
-    <section class="ola h-[100px] w-full"></section>
+  <div class="carousel relative h-[350px] w-full mb-4">
     <div
       v-for="image in props.images"
       :key="image"
-      id="slide1"
-      class="carousel-item relative h-[300px] w-full"
+      class="carousel-item w-full"
     >
+      <div>
+        <a @click="navigateTo('/my-pets')" class="btn btn-circle absolute m-2"
+          >❮</a
+        >
+      </div>
       <img :src="image" class="w-full object-cover" />
     </div>
   </div>

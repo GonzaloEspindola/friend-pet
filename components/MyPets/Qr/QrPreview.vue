@@ -45,32 +45,42 @@ const downloadQrPng = () => {
         </div>
       </div>
       <div class="h-[200px] relative bg-base-200">
-        <div
-          @click="downloadQrPng"
-          class="bg-primary absolute right-0 top-0 z-50 p-1 cursor-pointer"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-download"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="white"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+        <section class="flex items-center absolute gap-2 p-2 z-50">
+          <div>
+            <a
+              @click="navigateTo('/my-pets')"
+              class="btn btn-sm btn-circle btn-primary cursor-pointer"
+              >❮</a
+            >
+          </div>
+          <div
+            @click="downloadQrPng"
+            class="flex items-center justify-center bg-primary p-1 px-2 rounded-md cursor-pointer text-white text-sm"
           >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12 5v13m-4-4l4 4l4-4" />
-          </svg>
-        </div>
+            Descargar QR
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-download"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="white"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 5v13m-4-4l4 4l4-4" />
+            </svg>
+          </div>
+        </section>
         <MyPetsQrForm
           :background-color="backgroundColor"
           :dots-color="dotsColor"
           :qrUrl="qrUrl"
           hidden
-          @update:svg="(dataURI) => (qrUri = dataURI)"
+          @update:svg="(dataURI: string) => (qrUri = dataURI)"
         />
         <div
           id="qr-section"

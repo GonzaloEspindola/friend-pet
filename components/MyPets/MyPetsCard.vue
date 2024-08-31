@@ -24,10 +24,10 @@ const openEditModal = (id: string) => {
     <MyPetsImage :url="props.imageUrl" />
     <article class="flex justify-between items-center gap-2">
       <MyPetsCardActionsShowQR :id="props.id" :qr-code="props.qrCode" />
-      <MyPetsCardActionsDetail :id="props.id" />
+      <MyPetsCardActionsDetail :qr-code="props.qrCode" />
       <MyPetsCardActionsEdit
         :id="props.id"
-        @open-edit-modal="(id) => openEditModal(id)"
+        @open-edit-modal="(id: string) => openEditModal(id)"
       />
       <MyPetsCardActionsDelete :id="props.id" :refresh="refresh" />
     </article>

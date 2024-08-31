@@ -1,16 +1,22 @@
 <script setup lang="ts">
 interface DeleteProps {
-  id: string
+  qrCode: string
 }
 
 const props = defineProps<DeleteProps>()
+const hasQrCode = computed(() => props.qrCode !== undefined)
 </script>
 
 <template>
   <button
-    @click="navigateTo(`/card/${props.id}`)"
-    title="Detalle"
+    @click="navigateTo(`/card/${props.qrCode}`)"
     class="btn bg-[#07312D] min-h-0 h-9 w-9 p-0 m-0 rounded-md grow"
+    :title="
+      !hasQrCode
+        ? 'Debe configurar el QR para obtener la carta de información'
+        : 'Detalle'
+    "
+    :disabled="!hasQrCode"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

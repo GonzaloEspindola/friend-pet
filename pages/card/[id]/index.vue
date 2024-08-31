@@ -33,7 +33,7 @@ const { data, pending, refresh } = useAsyncData(
 
 <template>
   <section class="flex flex-col items-center gap-2 max-w-md min-h-screen">
-    <div class="bg-[#f8f8f8] w-full h-full">
+    <div class="bg-[#f8f8f8] w-full h-full shadow-2xl">
       <section class="flex flex-col">
         <PublicImageSection :images="data?.pet?.gallery!" />
         <section class="flex flex-col gap-6 px-6 z-10 pb-6">
