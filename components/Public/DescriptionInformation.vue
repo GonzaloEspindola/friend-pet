@@ -8,8 +8,8 @@ const props = defineProps<DescriptionProps>()
 
 <template>
   <article v-if="props.description" class="flex flex-col gap-2">
-    <h2 class="color-secondary">Descripción</h2>
-    <p class="color-primary">
+    <h1>Descripción</h1>
+    <p class="text-neutral">
       {{ props.description }}
     </p>
   </article>

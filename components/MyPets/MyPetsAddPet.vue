@@ -171,7 +171,7 @@ defineExpose({
 
 <template>
   <div
-    class="flex flex-col p-2 text-center text-white rounded-md drop-shadow-md select-none border-2 border-dashed border-white hover:border-primary hover:cursor-pointer hover:color-primary hover:text-primary"
+    class="flex flex-col p-2 text-center text-neutral-content rounded-md drop-shadow-md select-none border-2 border-dashed border-neutral-content hover:border-primary hover:cursor-pointer hover:color-primary hover:text-primary"
     @click="handleClick"
   >
     <article class="flex items-center justify-center h-40">

@@ -36,7 +36,7 @@ const downloadQrPng = () => {
 
 <template>
   <section>
-    <div class="mockup-browser border bg-base-300 rounded-sm">
+    <div class="mockup-browser border bg-base-300 rounded-sm mt-[6rem]">
       <div class="mockup-browser-toolbar">
         <div class="input text-sm">
           <p class="mt-1">

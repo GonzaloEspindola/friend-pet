@@ -2,7 +2,8 @@
 import { useForm } from 'vee-validate'
 
 definePageMeta({
-  auth: false,
+  layout: 'landing',
+  auth: 'guest',
 })
 
 interface Form {
@@ -34,17 +35,13 @@ const handleSubmitForm = handleSubmit(async () => {
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen bg-white md:flex-row items-center p-1">
-    <article class="w-full h-2/5 bg-primary md:w-3/5 md:h-full rounded-md">
-      <Carousel />
-    </article>
-
+  <div
+    class="flex flex-col min-h-screen justify-center bg-base-100 md:flex-row items-center p-1"
+  >
     <article
       class="flex flex-col p-8 w-full h-3/5 justify-center md:w-2/5 md:h-full"
     >
-      <h3 class="text-center text-secondary font-semibold text-xl">
-        Crear tu cuenta
-      </h3>
+      <h1 class="text-center text font-semibold text-xl">Crear tu cuenta</h1>
       <p class="text-neutral text-xs font-semibold text-center p-2">
         Crea tu cuenta para comenzar a generar perfiles para tus mascotas
       </p>

@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<OwnerSectionProps>(), {
 
 <template>
   <article class="flex flex-col gap-2">
-    <h2 v-if="!props.hideTitle" class="color-secondary">Mi familia</h2>
+    <h1 v-if="!props.hideTitle">Mi familia</h1>
     <div v-for="owner in props.ownersList">
       <PublicOwnerCard
         :key="owner.ownerName"

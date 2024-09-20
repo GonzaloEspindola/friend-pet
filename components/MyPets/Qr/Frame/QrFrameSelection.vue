@@ -61,7 +61,7 @@ watch(props, () => {
     <div class="collapse bg-base-200 rounded-sm">
       <input type="checkbox" class="peer" />
       <div class="collapse-title">
-        <h3 class="text-secondary font-semibold">Marco</h3>
+        <h3 class="font-semibold">Marco</h3>
         <p class="text-neutral text-sm">
           Personalice el marco que mejor se adapte al estilo de su mascota
         </p>
@@ -70,10 +70,10 @@ watch(props, () => {
         <div class="divider m-0 p-0"></div>
         <div class="flex flex-col gap-2">
           <section>
-            <p class="text-neutral text-xs font-semibold">Estilo de marco</p>
+            <p class="text-xs font-semibold">Estilo de marco</p>
             <article class="flex flex-wrap gap-2 mt-2">
               <button
-                class="w-[80px] h-[100px] p-2 bg-white rounded-md border-[2px] hover:border-gray-400"
+                class="w-[80px] h-[100px] p-2 bg-base-300 rounded-md border-[2px] hover:border-gray-400"
                 :class="{ 'border-primary': props.selectedFrame === 0 }"
                 @click="props.handleChangeFrame(0)"
               >
@@ -85,7 +85,7 @@ watch(props, () => {
               <button
                 v-for="frame in frames"
                 :key="frame.id"
-                class="w-[80px] h-[100px] p-2 bg-white rounded-md border-[2px] hover:border-gray-400"
+                class="w-[80px] h-[100px] p-2 bg-base-300 rounded-md border-[2px] hover:border-gray-400"
                 :class="{ 'border-primary': selectedFrame === frame.id }"
                 @click="props.handleChangeFrame(frame.id)"
               >
@@ -97,7 +97,7 @@ watch(props, () => {
           </section>
 
           <section
-            class="flex flex-col flex-1 gap-2 bg-[#F3F3F3] p-4 rounded-sm"
+            class="flex flex-col flex-1 gap-2 bg-base-300 p-4 rounded-sm"
             v-if="selectedFrame !== 0"
           >
             <p class="text-neutral text-xs font-semibold">Texto del marco</p>
@@ -119,9 +119,9 @@ watch(props, () => {
           </section>
 
           <section
-            class="flex flex-col flex-1 gap-2 bg-[#F3F3F3] p-4 rounded-sm"
+            class="flex flex-col flex-1 gap-2 bg-base-300 p-4 rounded-sm"
           >
-            <p class="text-neutral text-xs font-semibold">Color del marco</p>
+            <p class="text-xs font-semibold">Color del marco</p>
             <article class="flex gap-2">
               <Field
                 :value="props.frameColor"

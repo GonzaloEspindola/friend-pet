@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import QrFrameSelection from '~/components/MyPets/Qr/Frame/QrFrameSelection.vue'
 
+definePageMeta({
+  layout: 'landing',
+  auth: false,
+})
+
 const route = useRoute()
 const router = useRouter()
 const petId = String(route.params.id)
@@ -124,7 +129,9 @@ watch(
 </script>
 
 <template>
-  <main class="flex flex-col gap-4 md:p-4">
+  <main
+    class="flex flex-col gap-4 w-full min-h-screen mx-auto sm:w-11/12 md:w-3/4 lg:w-2/3"
+  >
     <MyPetsQrPreview
       :selected-frame="selectedFrame"
       :frame-color="frameColor"

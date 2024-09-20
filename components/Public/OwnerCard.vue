@@ -12,7 +12,7 @@ const props = defineProps<OwnerCardProps>()
 
 <template>
   <div
-    class="flex rounded-xl gap-4 items-center p-4 border hover:bg-slate-100 hover:border-slate-300"
+    class="flex rounded-xl gap-4 items-center p-4 border hover:bg-base-300 hover:border-slate-300"
   >
     <section>
       <img
@@ -31,10 +31,10 @@ const props = defineProps<OwnerCardProps>()
     </section>
 
     <section>
-      <h2 class="color-primary text-xl">
+      <h1 class="text-lg">
         <strong>{{ props.ownerName }}</strong>
-      </h2>
-      <p class="text-slate-400">{{ props.ownerType }}</p>
+      </h1>
+      <p class="text-sm">{{ props.ownerType }}</p>
     </section>
 
     <section class="flex justify-end items-center grow gap-4">

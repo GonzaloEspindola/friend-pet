@@ -36,10 +36,10 @@ const updateProfilePhoto = async () => {
   try {
     isImageLoading.value = true
     await $api.user.updateProfilePhoto(payload)
-    showToast('Foto subida correctamente', 'success', 'bg-green-500')
+    showToast('Imagen actualizada correctamente', 'success', 'bg-green-500')
     await useNuxtApp().$auth.fetchUser()
   } catch (error) {
-    showToast('Error al actualizar perfil', 'error')
+    showToast('Error al actualizar imagen de perfil', 'error', 'bg-red-500')
   } finally {
     isImageLoading.value = false
   }
@@ -112,9 +112,9 @@ watch(
       <label
         v-if="!user?.profile.url && !isImageLoading"
         for="photo"
-        class="flex items-center justify-center w-[150px] h-[150px] bg-neutral-100 border-1 text-neutral hover:cursor-pointer"
+        class="flex items-center justify-center w-[150px] h-[150px] bg-neutral-content rounded-md border-1 text-neutral hover:cursor-pointer hover:opacity-50"
       >
-        Subir imagen
+        Subir Imagen
         <Field
           id="photo"
           name="photo"
@@ -129,7 +129,7 @@ watch(
       class="flex flex-col-reverse gap-2 p-2 flex-1 md:flex-col md:justify-center md:items-center"
     >
       <div class="flex items-center justify-between w-full">
-        <h2 class="hidden md:block">Información personal</h2>
+        <h2 class="text-base-content hidden md:block">Información personal</h2>
         <CommonsPrimaryButton
           :text="profileIsCompleted ? 'Actualizar perfil' : 'Guardar'"
           class="btn-primary btn-sm text-white grow md:grow-0"
@@ -147,7 +147,7 @@ watch(
             name="ownerName"
             type="text"
             rules="required"
-            class="field-grow text-black"
+            class="field-grow"
           />
         </label>
 
@@ -162,7 +162,7 @@ watch(
             name="ownerTypePreference"
             type="text"
             rules="required"
-            class="field-grow text-black"
+            class="field-grow"
             placeholder="Dueña"
           />
         </label>
@@ -176,7 +176,7 @@ watch(
             name="cellphone"
             type="number"
             rules="required"
-            class="field-grow text-black"
+            class="field-grow"
             placeholder="115674843"
           />
         </label>
@@ -190,7 +190,7 @@ watch(
             name="whatsApp"
             type="number"
             rules="required"
-            class="field-grow text-black"
+            class="field-grow"
             placeholder="115674843"
           />
         </label>

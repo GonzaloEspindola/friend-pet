@@ -9,6 +9,8 @@ const theme = computed(() => (themeStore.isDark ? 'dark' : 'light'))
 
 <template>
   <html :data-theme="theme">
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </html>
 </template>

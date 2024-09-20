@@ -49,7 +49,7 @@ watch(props, () => {
   <div class="collapse bg-base-200 rounded-sm">
     <input type="checkbox" class="peer" />
     <div class="collapse-title">
-      <h3 class="text-secondary font-semibold">Colores</h3>
+      <h3 class="text font-semibold">Colores</h3>
       <p class="text-neutral text-sm">
         Personalice el color que mejor se adapte al estilo de su mascota
       </p>
@@ -57,13 +57,12 @@ watch(props, () => {
     <div class="collapse-content">
       <div class="divider m-0 p-0"></div>
       <section>
-        <p class="text-neutral text-xs font-semibold mb-2">Colores</p>
         <article>
           <div class="flex flex-col gap-2">
             <article
-              class="flex flex-col flex-1 gap-2 bg-[#F3F3F3] p-4 rounded-sm"
+              class="flex flex-col flex-1 gap-2 bg-base-300 p-4 rounded-sm"
             >
-              <p class="text-neutral text-xs font-semibold">Color del fondo</p>
+              <p class="text-xs font-semibold">Color del fondo</p>
               <section class="flex gap-2">
                 <Field
                   :value="props.backgroundColor"
@@ -82,11 +81,9 @@ watch(props, () => {
             </article>
 
             <article
-              class="flex flex-col flex-1 gap-2 bg-[#F3F3F3] p-4 rounded-sm"
+              class="flex flex-col flex-1 gap-2 bg-base-300 p-4 rounded-sm"
             >
-              <p class="text-neutral text-xs font-semibold">
-                Color de los puntos
-              </p>
+              <p class="text-xs font-semibold">Color de los puntos</p>
               <section class="flex gap-2">
                 <Field
                   :value="props.dotsColor"

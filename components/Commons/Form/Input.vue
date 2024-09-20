@@ -59,12 +59,12 @@ const isRequired = props.rules?.includes('required')
       :as="props.as ? props.as : undefined"
       :class="{ 'py-3 px-4': !inputClass, 'rounded-md': inputClass }"
     />
-    <div v-if="props.multipleInput" class="w-auto bg-slate-100 rounded-md">
+    <div v-if="props.multipleInput" class="w-auto bg-base-300 rounded-md">
       <Field
         :name="props.selectName ?? ''"
         as="select"
         rules="required"
-        class="flex py-3 w-20 pl-3 mr-3 rounded-l-none bg-slate-100"
+        class="flex py-3 w-20 pl-3 mr-3 rounded-l-none bg-base-300"
         style="height: 100%"
       >
         <option value="" disabled>Selecciona una opción</option>
