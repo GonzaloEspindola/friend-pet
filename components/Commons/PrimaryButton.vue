@@ -36,10 +36,10 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <button
+  <NuxtLink
     :class="['flex items-center gap-2 justify-center rounded btn', classes]"
     :type="props.type"
-    :disabled="props.pending"
+    :href="props.to"
   >
     <img
       v-if="props.showIcon"
@@ -49,5 +49,5 @@ const classes = computed(() => {
     />
     <span v-if="props.pending" class="loading loading-spinner w-4 h-4"></span>
     {{ props.text }}
-  </button>
+  </NuxtLink>
 </template>

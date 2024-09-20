@@ -6,9 +6,8 @@
 html {
   font-family: 'Poppins', sans-serif;
   background-color: #dfdbe5;
-  background-image: url('/assets/examples/background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
+  transition-duration: 0.5s;
+  scroll-behavior: smooth;
 }
 
 body {
