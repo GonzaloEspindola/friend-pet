@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useThemeStore } from '@/store/index'
-const { loggedIn, user } = useAuth()
+const { loggedIn, user, signOut } = useAuth()
 
 const themeStore = useThemeStore()
 
 const isDark = computed(() => themeStore.isDark)
 
 const userImage = computed(
-  () => user.value.profile.url ?? '@/assets/img/imagen_no_disponible.jpg',
+  () => user?.value?.profile?.url ?? '@/assets/img/imagen_no_disponible.jpg',
 )
 </script>
 
@@ -24,7 +24,7 @@ const userImage = computed(
         </NuxtLink>
       </div>
 
-      <nav class="hidden" :class="{ 'flex space-x-6': !loggedIn }">
+      <nav v-if="!loggedIn" class="hidden lg:flex space-x-6">
         <a href="#home" class="text-paragraph font-semibold hover:text-gray-900"
           >Inicio</a
         >
@@ -39,7 +39,7 @@ const userImage = computed(
         <CommonsToggleTheme />
       </div>
 
-      <div class="dropdown dropdown-bottom dropdown-end">
+      <div v-if="loggedIn" class="dropdown dropdown-bottom dropdown-end">
         <div tabindex="0" role="button" class="w-8 h-8">
           <img
             :src="userImage"
@@ -52,7 +52,7 @@ const userImage = computed(
           class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
         >
           <li><NuxtLink to="/my-pets">Mis mascotas</NuxtLink></li>
-          <li><a>Cerrar sesión</a></li>
+          <li @click="signOut"><a>Cerrar sesión</a></li>
         </ul>
       </div>
     </div>

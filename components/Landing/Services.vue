@@ -12,7 +12,7 @@
       </p>
     </div>
 
-    <section class="first">
+    <section class="first hover:scale-95 duration-300">
       <div>
         <img src="@/assets/svg/account.svg" alt="icono de cuenta" class="h-8" />
         <h1 class="font-semibold text-secondary">Crea tu cuenta</h1>
@@ -23,7 +23,7 @@
       </div>
     </section>
 
-    <div class="second">
+    <div class="second hover:scale-95 duration-300">
       <div>
         <img src="@/assets/svg/add.svg" alt="icono de cuenta" class="h-8" />
         <h1 class="font-semibold text-secondary">Añade tus mascotas</h1>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="third">
+    <div class="third hover:scale-95 duration-300">
       <div>
         <img src="@/assets/svg/qr.svg" alt="icono de cuenta" class="h-8" />
         <h1 class="font-semibold text-secondary">Genera el codigo QR</h1>
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="four">
+    <div class="four hover:scale-95 duration-300">
       <div>
         <img src="@/assets/svg/update.svg" alt="icono de cuenta" class="h-8" />
         <h1 class="font-semibold text-secondary">
@@ -319,14 +319,6 @@
   .four-decoration {
     display: none;
   }
-}
-
-.first div:hover,
-.second div:hover,
-.third div:hover,
-.four div:hover {
-  transform: scale(1.05);
-  transition-duration: 0.5s;
 }
 
 .first div {

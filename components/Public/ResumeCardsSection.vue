@@ -11,7 +11,7 @@ const props = defineProps<ResumeCardsProps>()
 
 <template>
   <section class="flex flex-col gap-2">
-    <h2>Datos sobre mi</h2>
+    <h1>Datos sobre mi</h1>
     <article class="grid-section gap-2">
       <div
         class="flex items-center flex-item gap-3 py-1 px-4 rounded-xl border hover:bg-base-300 hover:border-slate-300"

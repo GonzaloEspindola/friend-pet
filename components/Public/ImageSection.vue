@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { loggedIn } = useAuth()
+
 interface Props {
   images: string[]
 }
@@ -13,7 +15,7 @@ const props = defineProps<Props>()
       :key="image"
       class="carousel-item w-full"
     >
-      <div>
+      <div v-if="loggedIn">
         <a @click="navigateTo('/my-pets')" class="btn btn-circle absolute m-2"
           >❮</a
         >
