@@ -23,35 +23,35 @@
       </div>
     </div>
 
-    <div class="left">
+    <div class="left rounded-md hover:scale-95 duration-300">
       <img
-        src="@/assets/img/pet-1.png"
+        src="@/assets/examples/pupi.jpg"
         alt="Imagen de mascota 1"
-        class="object-cover h-full"
+        class="object-cover h-full rounded-md"
       />
     </div>
 
-    <div class="left-bottom">
+    <div class="left-bottom rounded-md hover:scale-95 duration-300">
       <img
-        src="@/assets/img/pet-3.png"
-        alt="Imagen de mascota 3"
-        class="object-cover h-full"
+        src="@/assets/examples/qr_pupi.png"
+        alt="Imagen de mascota 1"
+        class="object-cover h-full rounded-md"
       />
     </div>
 
-    <div class="right">
+    <div class="right rounded-md hover:scale-95 duration-300">
       <img
-        src="@/assets/img/pet-2.png"
+        src="@/assets/examples/ciro.jpg"
         alt="Imagen de mascota 2"
-        class="object-cover h-full"
+        class="object-cover h-full rounded-md"
       />
     </div>
 
-    <div class="right-bottom">
+    <div class="right-bottom rounded-md hover:scale-95 duration-300">
       <img
-        src="@/assets/img/pet-4.png"
+        src="@/assets/examples/qr_ciro.png"
         alt="Imagen de mascota 4"
-        class="object-cover h-full"
+        class="object-cover h-full rounded-md"
       />
     </div>
 
@@ -103,7 +103,7 @@
   grid-row: span 4 / span 4;
   grid-column-start: 1;
   grid-row-start: 2;
-  border: 2px solid #f7eefc;
+  border: 2px solid #523861;
   padding: 4px;
 }
 
@@ -112,7 +112,7 @@
   grid-row: span 4 / span 4;
   grid-column-start: 10;
   grid-row-start: 2;
-  border: 2px solid #fde3f6;
+  border: 2px solid #cff1d7;
   padding: 4px;
 }
 
@@ -121,7 +121,7 @@
   grid-row: span 4 / span 4;
   grid-column-start: 4;
   grid-row-start: 5;
-  border: 2px solid #f0fde3;
+  border: 2px solid #47cdee;
   padding: 4px;
 }
 
@@ -130,7 +130,7 @@
   grid-row: span 4 / span 4;
   grid-column-start: 7;
   grid-row-start: 5;
-  border: 2px solid #fdefe3;
+  border: 2px solid #be67e0;
   padding: 4px;
 }
 
