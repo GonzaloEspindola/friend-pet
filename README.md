@@ -1,78 +1,15 @@
-# Nuxt 3 Minimal Starter
+# FriendPet 🐶✨
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+FriendPet es una aplicación que te permite crear perfiles para tus mascotas y asociarlas a un codigo QR totalmente personalizable.
 
-## Setup
+## Características 🚀
 
-Make sure to install the dependencies:
+- 🎨 **Información actualizable**: Mantén la información de tu mascota siempre actualizada.
+- 🌐 **Asociada a un QR**: Asocia los perfiles a un codigo QR para acceder a el de manera rapida o incluso tener el QR disponible en el collar de tu mascota.
+- ⚙️ **Interfaz fácil de usar**: Agrega a tus mascotas de forma rapida y facil con la interfaz intuitiva y facil de utilizar.
 
-```bash
-# npm
-npm install
+## Web
 
-# pnpm
-pnpm install
+¡Puedes probar FriendPet directamente en la web [aqui](https://friend-pet.vercel.app/)!
 
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-PORT=3001
-BASE_URL=http://localhost:8080
+![Imagen de FriendPet](https://res.cloudinary.com/ds3dttn8v/image/upload/f_auto,q_auto/v1/portfolio/projects/FriendPet-2)
